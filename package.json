@@ -1,0 +1,32 @@
+{
+  "name": "medicpool",
+  "version": "1.0.0",
+  "description": "Server-side full-stack application to book appointments to doctor clinics and see latest world health news",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SOFT-Care/medicpool.git"
+  },
+  "author": "Omar Ramadan, Tala Hajeer, Faisal Abu Zaid, Sajeda Araidah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SOFT-Care/medicpool/issues"
+  },
+  "homepage": "https://github.com/SOFT-Care/medicpool#readme",
+  "dependencies": {
+    "chart.js": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "jquery": "^3.6.0",
+    "method-override": "^3.0.0",
+    "mustache": "^4.2.0",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
+    "superagent": "^6.1.0"
+  }
+}
