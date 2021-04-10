@@ -23,6 +23,12 @@ Our project is a website where users can search for doctors according to the are
 10. As a user I want the ability to contact with the website owner to give any feedback or comments through socail media or email
 11. As a user I want to subscribe to a newsletter so that I can know latest update on the website
 
+## Wireframes
+
+* Mobile design
+
+![Home page, Navigation bar, and search form](assets/img/wiref)
+
 ## Technologies used
 
 - HTML
@@ -61,13 +67,22 @@ Our project is a website where users can search for doctors according to the are
 
 ## How to use the application
 
+### For users
+
 Users need to have web browser on their devices. Google Chrome latest version is highly recommended.
 Users can go to this URL to start using the app: [Application website](https://medicpool.herokuapp.com/)
 
-## For developers
+### For developers
 
 They can clone the repo from the GitHub page. Use the NPM tool with Node to download packages
-Run this command on the terminal: ``` NPM INSTALL ```
+Run this command on the terminal: 
+
+```npm
+
+NPM INSTALL
+
+```
+
 Then navigate to the cloned directory and import the file to your IDE or tect editor. VSCode is highly recommended.
 
 - Clearly defined API endpoints with sample responses

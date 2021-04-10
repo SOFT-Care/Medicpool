@@ -42,12 +42,12 @@ Our application does not provide these features:
 
 ### Useability
 
-- Easy to use and ituitive UI
+- Easy to use and inutitve UI.
 
 ### Security
 
-- data binding with the data base
-- using post request to fitch suer data
+- Using data bining with query SQL commands to insure secure input
+- Using POST request instead of GET to fitch user data
 
 ### Flixibility
 
