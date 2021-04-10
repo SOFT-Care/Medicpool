@@ -11,6 +11,9 @@ app.use('/', (req, res) => {
     res.render('pages/index');
 });
 
+
+
+
 app.listen(PORT, () => {
     console.log('listeneing on ', PORT);
 });
