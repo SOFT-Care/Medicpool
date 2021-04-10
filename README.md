@@ -2,7 +2,7 @@
 
 ## Project contributers:
 
-1. Omar Ramadan
+1. Omar Ahmad Ramadan
 2. Tala Hajeer
 3. Faisal Abuzaid
 4. Sajeda Araidah
