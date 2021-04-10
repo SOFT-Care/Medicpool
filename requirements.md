@@ -49,6 +49,6 @@ Our application does not provide these features:
 - Using data bining with query SQL commands to insure secure input
 - Using POST request instead of GET to fitch user data
 
-### Flixibility
+### Flixibilitygit p
 
 - Responsive design works on mobile and desktop
