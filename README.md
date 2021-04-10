@@ -31,36 +31,36 @@ Our project is a website where users can search for doctors according to the are
 
 ## Technologies used
 
-- HTML
-- CSS
-- JavaScript
-- Node
-- VSCode
-- Markdown
-- JSON
-- SQL
-- EJS
-- GIT
-- GitHub
-- BASH Shell
-- Heroku
-- Google Chrome
-- ESLint
+* HTML
+* CSS
+* JavaScript
+* Node
+* VSCode
+* Markdown
+* JSON
+* SQL
+* EJS
+* GIT
+* GitHub
+* BASH Shell
+* Heroku
+* Google Chrome
+* ESLint
 
 ### Libraries and packages
 
-- "chart.js": "^3.0.2",
-- "cors": "^2.8.5",
-- "dotenv": "^8.2.0",
-- "ejs": "^3.1.6",
-- "express": "^4.17.1",
-- "jquery": "^3.6.0",
-- "method-override": "^3.0.0",
-- "mustache": "^4.2.0",
-- "nodemon": "^2.0.7",
-- "pg": "^8.5.1",
-- "superagent": "^6.1.0",
-- "unirest": "^0.6.0"
+* "chart.js": "^3.0.2",
+* "cors": "^2.8.5",
+* "dotenv": "^8.2.0",
+* "ejs": "^3.1.6",
+* "express": "^4.17.1",
+* "jquery": "^3.6.0",
+* "method-override": "^3.0.0",
+* "mustache": "^4.2.0",
+* "nodemon": "^2.0.7",
+* "pg": "^8.5.1",
+* "superagent": "^6.1.0",
+* "unirest": "^0.6.0"
 [CORONA Virus news API:](https://github.com/M-Media-Group/Covid-19-API)
 [Google Places API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fsearch%3Fhl%3Den_US)
 [Places details API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fdetails%3Fhl%3Den_US)
@@ -75,7 +75,7 @@ Users can go to this URL to start using the app: [Application website](https://m
 ### For developers
 
 They can clone the repo from the GitHub page. Use the NPM tool with Node to download packages
-Run this command on the terminal: 
+Run this command on the terminal:
 
 ```npm
 
@@ -85,6 +85,6 @@ NPM INSTALL
 
 Then navigate to the cloned directory and import the file to your IDE or tect editor. VSCode is highly recommended.
 
-- Clearly defined API endpoints with sample responses
+* Clearly defined API endpoints with sample responses
 
-- Clearly defined database schemas
+* Clearly defined database schemas
