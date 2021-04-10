@@ -27,7 +27,8 @@ Our project is a website where users can search for doctors according to the are
 
 * Mobile design
 
-![Home page, Navigation bar, and search form](assets/img/wiref)
+![Home page, Navigation bar, and search form](assets/img/wireframes/Capture.PNG)
+![User Info page and Search results](assets/img/wireframes/Capture2.png)
 
 ## Technologies used
 
