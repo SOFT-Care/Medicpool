@@ -9,7 +9,9 @@ let superagent = require('superagent');
 let cors = require('cors');
 let methodOverride = require('method-override');
 const {
-  stat
+
+    stat
+
 } = require('fs');
 app.use(cors());
 app.use(methodOverride('_method'));
@@ -28,11 +30,10 @@ function getSignUpPage(req, res) {
   res.render('pages/signuppage/signup');
 }
 
-
 app.get('*', getErrorPage);
 
 function getErrorPage(req, res) {
-  res.render('pages/error');
+    res.render('pages/error');
 }
 app.listen(PORT, () => {
   console.log('listeneing on ', PORT);
