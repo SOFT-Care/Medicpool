@@ -17,8 +17,9 @@ app.use(exppress.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
+
 app.get('/', getHomePage);
-app.get('/signup' ,getSignUpPage);
+app.get('/signup', getSignUpPage);
 
 function getHomePage(req, res) {
   res.render('pages/index');
@@ -27,7 +28,6 @@ function getHomePage(req, res) {
 function getSignUpPage(req, res) {
   res.render('pages/signuppage/signup');
 }
-
 
 app.get('*', getErrorPage);
 
