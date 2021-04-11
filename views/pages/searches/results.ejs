@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head') %>
+        <title>Find Results</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header') %>
+    </header>
+    <main>
+        <% searchResults.forEach (searchResults=> { %>
+
+            <section class="dr_card">
+                <!-- <img src=""> -->
+                <h3>Name : <%= searchResults.name %>
+                </h3>
+                <h3>Speciallity : <%= searchResults.speciallity %>
+                </h3>
+                <h3>Location : <%= searchResults.location %>
+                </h3>
+
+                <% if(searchResults.availibility==true){ %>
+                    <h3>Availibility : Availible</h3>
+                    <% } else{ %>
+                        <h3>Availibility : Not Availible</h3>
+                        <% } %>
+
+                            <button>Reserve Appointment</button>
+            </section>
+            <br>
+            <% }) %>
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer') %>
+    </footer>
+</body>
+
+</html>
