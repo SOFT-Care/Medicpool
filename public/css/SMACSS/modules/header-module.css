@@ -1,0 +1,122 @@
+header>nav {
+    /* background-color: blueviolet; */
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+header nav>a:nth-child(1) {
+    max-width: 20%;
+}
+
+header nav>a:nth-child(2) {
+    flex-grow: 1;
+}
+
+.logoImg {
+    width: 100%;
+}
+
+nav ul {
+    max-width: 480px;
+    width: 480px;
+    height: 100vh;
+    background-color: black;
+    top: 0;
+    left: 0;
+    display: flex;
+    z-index: 5;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    position: absolute;
+    transform: translateY(-100vh);
+    transition: 0.5s linear;
+}
+
+nav ul li {
+    height: 7vh;
+    margin-left: 2rem;
+}
+
+#logo {
+    font-family: 'Delius Swash Caps';
+    font-size: 2.5rem;
+    font-weight: 800;
+    width: 100%;
+    text-align: center;
+}
+
+
+.slidermenu {
+    width: 7vh;
+    height: 7vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: block;
+    width: 80%;
+    height: 0.7vh;
+    background-color: black;
+    z-index: 6;
+    transition: 0.5s ease-out;
+    transform-origin: right;
+
+}
+
+header nav input[type="checkbox"] {
+    position: absolute;
+    width: 7vh;
+    height: 7vh;
+    right: 0;
+    top: 30%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 100;
+}
+
+
+
+header nav ul li a {
+    color: white;
+    font-size: 2rem;
+    font-family: 'russo one';
+}
+
+header nav input[type="checkbox"]:checked~ul {
+    transform: translateY(0);
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger {
+    background-color: white;
+}
+
+header nav input[type="checkbox"]:checked~.slidermenu {
+    transform: translateX(-5px);
+    z-index: 10;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger:first-child {
+    transform: rotate(-45deg);
+    width: 75%;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger:last-child {
+    transform: rotate(45deg);
+    width: 75%;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
+    transform: translatex(400%);
+    opacity: 0;
+}
