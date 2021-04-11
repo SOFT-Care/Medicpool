@@ -64,9 +64,12 @@ Our project is a website where users can search for doctors according to the are
 * "pg": "^8.5.1",
 * "superagent": "^6.1.0",
 * "unirest": "^0.6.0"
-[CORONA Virus news API:](https://github.com/M-Media-Group/Covid-19-API)
-[Google Places API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fsearch%3Fhl%3Den_US)
-[Places details API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fdetails%3Fhl%3Den_US)
+
+### APIs used
+
+1. [CORONA Virus news API](https://github.com/M-Media-Group/Covid-19-API)
+2. [Google Places API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fsearch%3Fhl%3Den_US)
+3. [Places details API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fdetails%3Fhl%3Den_US)
 
 ## How to use the application
 
