@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head')  %>
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header')  %>
+    </header>
+    <main>
+        <section>
+            <form action="/register" method="post">
+                <fieldset>
+                    <legend>Sign Up</legend>
+
+                    <label for="fname">First Name</label>
+                    <input type="text" placeholder="Enter Your First Name" id="fname" name="fname" required><br>
+
+                    <label for="lname">Second Name</label>
+                    <input type="text" placeholder="Enter Your Last Name" id="lname" name="fname"><br>
+
+                    <p>Gender</p>
+                    <SELECT name="gender" id="gender">
+                        <OPTION Value="male">Male</OPTION>
+                        <OPTION Value="female">Female</OPTION>                        
+                    </SELECT><br>
+
+                    <p>Date of Birth</p>
+                    <input type="date" id="birthday" name="birthday" required><br>
+
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter Email" name="email" required><br>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required><br>
+
+                    <label for="psw-repeat"><b>Repeat Password</b></label>
+                    <input type="password" placeholder="Repeat Password" name="psw-repeat" required><br>
+
+                    <LABEL FOR="terms"> I have read and agree to the Terms and Conditions and Privacy Policy </LABEL>
+                    <input type="checkbox" name="checkbox" value="check" id="agree" /><br>
+
+                    <input type="submit" value="Sign Up">
+
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer')  %>
+    </footer>
+</body>
+
+</html>
