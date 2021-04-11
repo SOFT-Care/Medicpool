@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&display=swap');
 @import url(./reset.css);
 @import url(./SMACSS/base.css);
 @import url(./SMACSS/layout.css);
-@import url(./SMACSS/modules/module.css);
+@import url(./SMACSS/modules/header-module.css);
+@import url(./SMACSS/modules/footer-module.css);
 @import url(./SMACSS/status.css);
 @import url(./SMACSS/themes.css);
