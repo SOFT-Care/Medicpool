@@ -2,14 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/layout/head')  %>
     <title>Home Page</title>
 </head>
 
 <body>
-    <h1>Proof of life</h1>
+    <header>
+
+        <%- include('../partials/layout/header')  %>
+    </header>
+    <main>
+        <section>
+            <img src="assets/img/doctor cover.jpg" alt="">
+            <a href="/searches/find">Find a Doctor</a>
+        </section>
+        <section id="mainLinks">
+            <a href="/covid19">Latest COVID-19 News</a><a href="/locandphone">Locations and Phone Numbers</a><a
+                href="/signup">Join Our Community</a>
+        </section>
+
+    </main>
+    <footer>
+
+        <%- include('../partials/layout/footer')  %>
+    </footer>
 </body>
 
 </html>
