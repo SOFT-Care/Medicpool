@@ -38,7 +38,7 @@ app.get('/signup' ,getSignUpPage);
 app.post('/register', registerUser);
 app.get('/login' , getLoginPage);
 app.post('/login', getLogin);
-
+app.get('/profile', getProfile);
 app.get('/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/login');
@@ -109,7 +109,6 @@ function getLogin(req, res) {
   });
 }
 
-app.get('/profile', getProfile);
 
 function getProfile(req, res) {
   if(req.session.loggedinUser){
