@@ -1,19 +1,17 @@
 'use strict';
 
 require('dotenv').config();
-let PORT = process.env.PORT;
-let express = require('express');
-let path = require('path');
-let app = express();
-let superagent = require('superagent');
-let cors = require('cors');
-var $ = require('jquery');
-var bodyParser = require('body-parser');
-let methodOverride = require('method-override');
+const PORT = process.env.PORT;
+const express = require('express');
+const path = require('path');
+const app = express();
+const superagent = require('superagent');
+const cors = require('cors');
+const methodOverride = require('method-override');
+const {
+  data
+} = require('jquery');
 
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
 app.use(cors());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,7 +19,8 @@ app.use('/jquery', express.static(path.join(__dirname + '/node_modules/jquery/di
 app.use(express.static(path.join(__dirname, 'data')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
-app.use(exppress.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true
 }));
 
@@ -40,7 +39,7 @@ function getHomePage(req, res) {
 
 
 function showForm(request, response) {
-    response.render('pages/searches/find');
+  response.render('pages/searches/find');
 }
 
 function getCovid19(req, res) {
@@ -50,34 +49,50 @@ function getCovid19(req, res) {
 function getSearchCorona(req, res) {
   let param = req.query.country;
   console.log(param);
-  superagent.get(`https://api.covid19api.com/total/dayone/country/${param}`).then(retData => {
-    res.send(retData.body)
+  superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
+    const dataByCountry = {
+      name: param,
+      dates: [],
+      deaths: [],
+      recovered: [],
+      active: [],
+      confirmed: []
+    }
+    retData.body.forEach(elem => {
+      dataByCountry.dates.push(elem.Date);
+      dataByCountry.deaths.push(elem.Deaths);
+      dataByCountry.recovered.push(elem.Recovered);
+      dataByCountry.confirmed.push(elem.Confirmed);
+      dataByCountry.active.push(elem.Active);
+    });
+    res.send(dataByCountry);
   });
 }
 
 function createSearch(req, res) {
-    // console.log(req.body);
-    let location = req.body.location;
+  let location = req.body.location;
 
-    let key = process.env.GOOGLE_AUTH;
-    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=clinic&key=${key}&region=${location}`;
+  let key = process.env.GOOGLE_AUTH;
+  let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=clinic&key=${key}&region=${location}`;
 
-    superagent.get(url)
-        .then(apiResponse => {
-            return apiResponse.body.results.map(doctorResult => new Doctor(doctorResult))
-        })
+  superagent.get(url)
+    .then(apiResponse => {
+      return apiResponse.body.results.map(doctorResult => new Doctor(doctorResult))
+    })
     .then((results) => {
       console.log(results);
-      res.render('pages/searches/results', { searchResults: results })
+      res.render('pages/searches/results', {
+        searchResults: results
+      })
     })
 }
 
 
 function Doctor(info) {
-    this.name = info.name;
-    this.speciallity = info.business_status;
-    this.location = info.formatted_address;
-    this.availibility = info.opening_hours ? info.opening_hours.open_now : "NOT AVAILABLE";
+  this.name = info.name;
+  this.speciallity = info.business_status;
+  this.location = info.formatted_address;
+  this.availibility = info.opening_hours ? info.opening_hours.open_now : "NOT AVAILABLE";
 }
 
 
