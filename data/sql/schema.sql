@@ -6,11 +6,8 @@
 -----Creating Table Contant-----
 CREATE TABLE IF NOT EXISTS Contact (
                             contant_id                SERIAL   PRIMARY KEY     ,--PRIMARY KEY 
-                            phone_number_1            INT                      ,
-                            phone_number_2            INT                      ,
-                            e_mail                    VARCHAR(100)             ,
-                            fax                       VARCHAR(100) 
-
+                            phone_number              INT                      ,
+                            e_mail                    VARCHAR(100)             
 );
 
 -----Creating Table Appointments-----
@@ -28,7 +25,6 @@ CREATE TABLE IF NOT EXISTS Patient (
                             patient_id               SERIAL   PRIMARY KEY      ,--PRIMARY KEY 
                             patient_first_name        VARCHAR(100)             ,
                             patient_last_name         VARCHAR(100)             ,
-                            age                       DATE                     ,
                             gender                    VARCHAR(50)              ,
                             date_of_birth             DATE                     ,
                             patient_image             VARCHAR(200)             ,
@@ -59,8 +55,8 @@ CREATE TABLE IF NOT EXISTS Doctor (
                             doctor_speciailty         VARCHAR(100)             ,
                             doctor_availability       BOOlEAN                  ,
                             cont_id                   INT                      ,--FOREIGN KEY
-                            patient_id               INT                       ,--FOREIGN KEY
-                            appointment_id           INT                        --FOREIGN KEY
+                            patient_id                INT                      ,--FOREIGN KEY
+                            appointment_id            INT                       --FOREIGN KEY
 );
 
                                 ---------------------------------------------
@@ -81,4 +77,3 @@ FOREIGN KEY (appointment_id) REFERENCES Appointments(appoi_id);
                                ---------------------------------------------
                                 --------------------COMMIT -----------------
                                 ---------------------------------------------
-
