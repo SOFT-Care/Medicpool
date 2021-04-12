@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head')  %>
+    <title>Your Profile</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header')  %>
+    </header>
+    <main>
+        <section>
+            <h2>Welcome to Dashboard</h2>
+            <p><b> Your Name</b> - <%=data.name %></p>
+            <p><b> Your Gender</b> - <%=data.gender %></p>
+            <p><b>Login Email</b> - <%=data.emailAddress %></p>
+            <p><a href="/logout">Logout</a></p>
+        </section>
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer')  %>
+    </footer>
+</body>
+
+</html>
