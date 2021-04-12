@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head')  %>
+    <title>Sign in your account</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header')  %>
+    </header>
+    <main>
+        <section>
+            <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
+            <form action="/login" method="post">
+                <fieldset>
+                    <legend>Sign in</legend>
+
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter your Email" name="email" required><br>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter your Password" name="psw" required><br>
+
+                    <input type="submit" value="Sign in">
+
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer')  %>
+    </footer>
+</body>
+
+</html>
