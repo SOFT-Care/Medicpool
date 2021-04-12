@@ -1,21 +1,16 @@
 'use strict';
 
 require('dotenv').config();
-let PORT = process.env.PORT;
-let express = require('express');
-let session = require('express-session');
-let path = require('path');
-let pg = require('pg');
-let app = express();
-let superagent = require('superagent');
-let cors = require('cors');
-var $ = require('jquery');
-var bodyParser = require('body-parser');
-let methodOverride = require('method-override');
+const PORT = process.env.PORT;
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const pg = require('pg');
+const app = express();
+const superagent = require('superagent');
+const cors = require('cors');
+const methodOverride = require('method-override');
 
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
 app.use(cors());
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -37,6 +32,7 @@ app.use('/jquery', express.static(path.join(__dirname + '/node_modules/jquery/di
 app.use(express.static(path.join(__dirname, 'data')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
+app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
@@ -75,13 +71,27 @@ function getCovid19(req, res) {
 function getSearchCorona(req, res) {
   let param = req.query.country;
   console.log(param);
-  superagent.get(`https://api.covid19api.com/total/dayone/country/${param}`).then(retData => {
-    res.send(retData.body);
+  superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
+    const dataByCountry = {
+      name: param,
+      dates: [],
+      deaths: [],
+      recovered: [],
+      active: [],
+      confirmed: []
+    }
+    retData.body.forEach(elem => {
+      dataByCountry.dates.push(elem.Date);
+      dataByCountry.deaths.push(elem.Deaths);
+      dataByCountry.recovered.push(elem.Recovered);
+      dataByCountry.confirmed.push(elem.Confirmed);
+      dataByCountry.active.push(elem.Active);
+    });
+    res.send(dataByCountry);
   });
 }
 
 function createSearch(req, res) {
-  // console.log(req.body);
   let location = req.body.location;
 
   let key = process.env.GOOGLE_AUTH;
