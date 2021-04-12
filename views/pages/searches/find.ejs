@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head') %>
+        <title>Find a Doctor</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header') %>
+    </header>
+    <main>
+        <section>
+            <fieldset>
+                <form action="/searches" method="POST">
+
+                    <input type="text" name="location" placeholder="Enter Location" required>
+
+                    <input type="text" name="speciallity" placeholder="Enter Speciallity" required>
+
+                    <input type="time" name="time" placeholder="Enter Time" required>
+
+                    <input type="date" name="date" placeholder="Enter Date" required>
+
+                    <button type="submit" id="submit" value="search">Search</button>
+                </form>
+            </fieldset>
+        </section>
+
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer') %>
+    </footer>
+</body>
+
+</html>

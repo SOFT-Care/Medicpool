@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@1,900&display=swap');
+
+main h1#error {
+    font-family: 'Playfair Display SC',
+        serif;
+    font-size: 4rem;
+    font-weight: 800;
+    text-align: center;
+    margin: 2rem 0;
+}

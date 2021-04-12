@@ -9,10 +9,13 @@ let pg = require('pg');
 let app = express();
 let superagent = require('superagent');
 let cors = require('cors');
+var $ = require('jquery');
+var bodyParser = require('body-parser');
 let methodOverride = require('method-override');
-const {
-  stat
-} = require('fs');
+
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cors());
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -30,9 +33,15 @@ app.use(session({
 }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/jquery', express.static(path.join(__dirname + '/node_modules/jquery/dist/')));
+app.use(express.static(path.join(__dirname, 'data')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
+app.use(exppress.urlencoded({
+  extended: true
+}));
 
+// Get requests
 app.get('/', getHomePage);
 app.get('/signup' ,getSignUpPage);
 app.post('/register', registerUser);
@@ -43,11 +52,60 @@ app.get('/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/login');
 });
+app.get('/covid19', getCovid19);
+app.get('/corona/search', getSearchCorona);
+app.get('/searches/find', showForm); // Shows the form of search
+app.post('/searches', createSearch); // Renders the result of the search
+
 
 function getHomePage(req, res) {
   res.render('pages/index');
 }
 var msg ='';
+
+
+function showForm(request, response) {
+  response.render('pages/searches/find');
+}
+
+function getCovid19(req, res) {
+  res.render('pages/corona-page/search');
+}
+
+function getSearchCorona(req, res) {
+  let param = req.query.country;
+  console.log(param);
+  superagent.get(`https://api.covid19api.com/total/dayone/country/${param}`).then(retData => {
+    res.send(retData.body);
+  });
+}
+
+function createSearch(req, res) {
+  // console.log(req.body);
+  let location = req.body.location;
+
+  let key = process.env.GOOGLE_AUTH;
+  let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=clinic&key=${key}&region=${location}`;
+
+  superagent.get(url)
+    .then(apiResponse => {
+      return apiResponse.body.results.map(doctorResult => new Doctor(doctorResult));
+    })
+    .then((results) => {
+      console.log(results);
+      res.render('pages/searches/results', { searchResults: results });
+    });
+}
+
+
+function Doctor(info) {
+  this.name = info.name;
+  this.speciallity = info.business_status;
+  this.location = info.formatted_address;
+  this.availibility = info.opening_hours ? info.opening_hours.open_now : 'NOT AVAILABLE';
+}
+
+
 function getSignUpPage(req, res) {
 
   res.render('pages/user/signup', {alertMsg: msg});
@@ -84,7 +142,7 @@ function registerUser (req, res) {
       client.query(SQL, val).then(() => {
       });
     }
-    // redirect to register page with an aler msg confirm what happen
+    // redirect to register page with an alert msg confirm what happen
     res.render('pages/user/signup', {alertMsg:msg});
   });
 
