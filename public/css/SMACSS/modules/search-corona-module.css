@@ -1,5 +1,6 @@
 .mainCorona {
     width: 80%;
+    margin: 3rem 0;
 }
 
 .coronaSearch {
@@ -25,6 +26,7 @@ input[type='date'] {
 
 select:focus {
     background-color: steelblue;
+    color: white;
 }
 
 label {
@@ -37,7 +39,7 @@ input[type='submit'] {
     outline: none;
     border: none;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.411);
-    background-color: teal;
+    background-color: mediumslateblue;
     color: white;
     font-size: 2rem;
 }
@@ -58,4 +60,8 @@ input[type='submit']:hover {
     transition: 200ms ease-out;
     transform: scale(1.02);
     box-shadow: 0 12px 9px 0 rgba(0, 0, 0, 0.411);
+}
+
+td {
+    font-size: 1.5rem;
 }

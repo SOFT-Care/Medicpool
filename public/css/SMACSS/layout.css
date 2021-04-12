@@ -40,6 +40,7 @@ table {
 
 td {
     text-align: center;
-    border: 2px solid black;
-    line-height: 500%;
+    border: 2px solid rgba(0, 0, 0, 0.123);
+    line-height: 5em;
+    background-color: thistle;
 }
