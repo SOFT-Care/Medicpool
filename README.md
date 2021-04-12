@@ -69,7 +69,7 @@ Our project is a website where users can search for doctors according to the are
 
 1. [CORONA Virus news API](https://documenter.getpostman.com/view/10808728/SzS8rjbc#intro)
 2. [Google Places API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fsearch%3Fhl%3Den_US)
-3. [Places details API](https://www.google.com/url?q=https%3A%2F%2Fdevelopers.google.com%2Fplaces%2Fweb-service%2Fdetails%3Fhl%3Den_US)
+3. [Places details API](https://maps.googleapis.com/maps/api/place/details/json?key=${key}&place_id=id)
 
 ## How to use the application
 
