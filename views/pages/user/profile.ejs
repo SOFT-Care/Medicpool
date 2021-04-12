@@ -13,10 +13,36 @@
     </header>
     <main>
         <section>
-            <h2>Welcome to Dashboard</h2>
-            <p><b> Your Name</b> - <%=data.name %></p>
-            <p><b> Your Gender</b> - <%=data.gender %></p>
-            <p><b>Login Email</b> - <%=data.emailAddress %></p>
+            <div >
+                <img src= />
+            </div>
+            <h2>Welcome <%=data.name %></h2>
+            <p>
+                <br>
+                <b> Your Name</b><br> - <%=data.name %>
+            </p><br>
+            <p>
+                <b> Your Gender</b><br> - <%=data.gender %>
+            </p><br>
+            <p>
+                <b>Login Email</b><br> - <%=data.emailAddress %>
+            </p><br>
+            <p>
+
+            </p>
+            <form action="/patient/<%=patient.id%>?_method=DELETE" method="post">
+              <button>Delete</button>
+            </form>
+         <
+
+        <button  id="update-btn">Update </button>
+        <form action="/patient/<%=patient.id%>?_method=PUT" method="post" id="updateForm" class="formHidden">
+            <input name="name"     value    = "<%= patient.name %>"  >
+            <input name="gender"   value    = "<%= patient.gender %>">
+            <input name="email"    value    = "<%=patient.email %>"  >
+            <button type="submit" id="save_button">Update Info</button>
+        </form>
+
             <p><a href="/logout">Logout</a></p>
         </section>
     </main>
