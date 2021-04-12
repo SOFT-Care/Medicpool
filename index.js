@@ -31,6 +31,18 @@ app.get('/searches/find', showForm);
 // Renders the result of the search
 app.post('/searches', createSearch);
 
+//Update Patient Informaion
+app.put('/pages/signuppage/signup:patient_id', updateOnePatient);
+
+//Delect Patient From DataBase
+app.delete('/pages/signuppage/signup:patient_id', deleteOnePatient);
+
+
+
+
+
+
+
 function getHomePage(req, res) {
   res.render('pages/index');
 }
@@ -79,3 +91,31 @@ function getErrorPage(req, res) {
 app.listen(PORT, () => {
   console.log('listeneing on ', PORT);
 });
+
+
+
+function updateOnePatient (request,response){
+  const patient_id= request.params.patient_id;
+  const {name,speciallity , location, availibility} = request.body;
+  let values = [name, speciallity, location, availibility, patient_id];
+  const SQL = `UPDATE Patient SET 
+                                name             =  $1  ,
+                                speciallity      =  $2  , 
+                                location         =  $3  ,
+                                availibility     =  $4  
+                                WHERE patient_id =  $5  `
+  client.query(SQL, values).then(results=> {
+    response.redirect(`/Patient/${patient_id}`);
+})
+}
+
+
+function deleteOnePatient(request,response){
+  const patient_id = request.params.patient_id;
+  let values = [patient_id];
+  const SQL=`DELETE FROM Patient
+                              WHERE Patient_id   = $1  `
+  client.query(SQL, values).then(results=> {
+    response.redirect(`/pages/signuppage/signup`);
+})
+}
