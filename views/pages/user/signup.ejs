@@ -13,15 +13,15 @@
     </header>
     <main>
         <section>
+            <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
             <form action="/register" method="post">
                 <fieldset>
                     <legend>Sign Up</legend>
-
                     <label for="fname">First Name</label>
                     <input type="text" placeholder="Enter Your First Name" id="fname" name="fname" required><br>
 
-                    <label for="lname">Second Name</label>
-                    <input type="text" placeholder="Enter Your Last Name" id="lname" name="fname"><br>
+                    <label for="lname">Last Name</label>
+                    <input type="text" placeholder="Enter Your Last Name" id="lname" name="lname"><br>
 
                     <p>Gender</p>
                     <SELECT name="gender" id="gender">
