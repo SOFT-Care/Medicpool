@@ -24,7 +24,9 @@ app.use(session({
   secret: '123456cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 60000 }
+  cookie: {
+    maxAge: 60000
+  }
 }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -50,7 +52,7 @@ app.get('/logout', function (req, res) {
   res.redirect('/login');
 });
 app.get('/covid19', getCovid19);
-app.get('/corona/search', getSearchCorona);
+// app.get('/corona/search', getSearchCorona);
 app.get('/searches/find', showForm); // Shows the form of search
 app.post('/searches', createSearch); // Renders the result of the search
 
@@ -69,31 +71,18 @@ function getCovid19(req, res) {
   res.render('pages/corona-page/search');
 }
 
-function getSearchCorona(req, res) {
-  let param = req.query.country;
-  console.log(param);
-  superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
-    const dataByCountry = {
-      name: param,
-      dates: [],
-      deaths: [],
-      recovered: [],
-      active: [],
-      confirmed: []
-    }
-    retData.body.forEach(elem => {
-      dataByCountry.dates.push(elem.Date);
-      dataByCountry.deaths.push(elem.Deaths);
-      dataByCountry.recovered.push(elem.Recovered);
-      dataByCountry.confirmed.push(elem.Confirmed);
-      dataByCountry.active.push(elem.Active);
-    });
-    res.send(dataByCountry);
-  });
-}
+// function getSearchCorona(req, res) {
+//   let param = req.query.country;
+//   console.log(param);
+//   superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
+//     );
+//     res.send(dataByCountry);
+//   });
+// }
 
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 function createSearch(req, res) {
   // console.log(req.body);
   let location = req.body.location;
@@ -192,12 +181,16 @@ function Doctor(info, request, available) {
 
 function getSignUpPage(req, res) {
 
-  res.render('pages/user/signup', { alertMsg: msg });
+  res.render('pages/user/signup', {
+    alertMsg: msg
+  });
 }
 
 function getLoginPage(req, res) {
 
-  res.render('pages/user/login', { alertMsg: msg });
+  res.render('pages/user/login', {
+    alertMsg: msg
+  });
 }
 
 function registerUser(req, res) {
@@ -223,11 +216,12 @@ function registerUser(req, res) {
       msg = 'Your are successfully registered';
       const val = [inputData.first_name, inputData.last_name, inputData.email_address, inputData.gender, inputData.password];
       var SQL = 'INSERT INTO registration (first_name, last_name, email_address, gender, password) VALUES ($1, $2, $3, $4, $5) ';
-      client.query(SQL, val).then(() => {
-      });
+      client.query(SQL, val).then(() => {});
     }
     // redirect to register page with an alert msg confirm what happen
-    res.render('pages/user/signup', { alertMsg: msg });
+    res.render('pages/user/signup', {
+      alertMsg: msg
+    });
   });
 
 }
@@ -246,7 +240,9 @@ function getLogin(req, res) {
       res.redirect('/profile');
     } else {
       msg = 'Your Email Address or password is wrong';
-      res.render('pages/user/login', { alertMsg: msg });
+      res.render('pages/user/login', {
+        alertMsg: msg
+      });
     }
   });
 }
@@ -254,7 +250,9 @@ function getLogin(req, res) {
 
 function getProfile(req, res) {
   if (req.session.loggedinUser) {
-    res.render('pages/user/profile', { data: req.session });
+    res.render('pages/user/profile', {
+      data: req.session
+    });
   } else {
     res.redirect('/login');
   }
