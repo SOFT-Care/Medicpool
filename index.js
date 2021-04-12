@@ -118,15 +118,25 @@ function createSearch(req, res) {
                   console.log(day[1]);
                   let regex = /[–,]/;
                   let rangeHours = day[1].split(regex);
-                  rangeHours = rangeHours.map(elem => {
-                    return elem.trim().split(" ")
-                  });
+                  rangeHours = rangeHours.map(elem => { return elem.trim().split(" ") });
+                  let pH;
+                  let aH;
                   rangeHours.forEach((elem, i) => {
+
                     if (elem.includes("PM")) {
-                      let h = rangeHours[i][0];
-                      rangeHours[i][0] = `${newH}:${newM}`;
-                      console.log("hoursssssssssss", rangeHours[i][0]);
+
+                      pH = rangeHours[i][0]; // 09:00
+                      // console.log("before", pH);
+                      pH = parseInt(pH.split(":")[0]) + 12; // 21
+                      // console.log("after", pH);
+
+                    } else if (elem.includes("AM")) {
+                      aH = rangeHours[i][0]; // 09:00
+                      // console.log("before", aH);
+                      aH = parseInt(aH.split(":")[0]); // 9
+                      // console.log("after", aH);
                     }
+                    console.log("range", pH - aH);
                   })
                   // console.log(rangeHours);
                 }
@@ -139,10 +149,10 @@ function createSearch(req, res) {
           }
           console.log(available);
           return new Doctor(doctorResult, req, available);
-        });
+        }).catch(err => { console.log("ERROR!!!!!", err) });
 
       });
-    });
+    }).catch(err => { console.log("ERROR!!!!!", err) });
   // .then((results) => {
   //     // console.log(results);
   //     // res.render('pages/searches/results', { searchResults: results })
