@@ -37,7 +37,7 @@ app.use('/jquery', express.static(path.join(__dirname + '/node_modules/jquery/di
 app.use(express.static(path.join(__dirname, 'data')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
-app.use(exppress.urlencoded({
+app.use(express.urlencoded({
   extended: true
 }));
 
