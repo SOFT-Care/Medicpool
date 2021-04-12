@@ -3,6 +3,7 @@
 
 <head>
     <%- include('../../partials/layout/head') %>
+    <link rel="stylesheet" href="/css/SMACSS/modules/search-corona-module.css">
     <title>Corona Virus Search</title>
 </head>
 
@@ -10,14 +11,30 @@
     <header>
         <%- include('../../partials/layout/header') %>
     </header>
-    <main>
-        <form action="/corona/search" method="get">
-            <select name="country" id="cnty">
+    <main class="mainCorona">
+        <form class="coronaSearch">
+            <label for="cnty">Country
+            </label>
 
-            </select>
-            <input type="submit" value="Search">
+                <select name="country" id="cnty" required>
+                    <option value="" selected disabled>Selece Country</option>
+                </select>
+            <label for="dateFrom">
+                From:
+            </label>
+                <input type="date" name="dataFrom" id="dateFrom" placeholder="From" required>
+            <label for="dateTo">
+                To:
+            </label>
+                <input type="date" name="dateTo" id="dateTo" placeholder="To" required>
+            <input type="submit" value="Search" id="submitCorona">
         </form>
-        <canvas class="coronaCanvas" width="400" height="400"></canvas>
+        <div class="todaysCoronaReport">
+
+        </div>
+        <div class="rangeCoronaReport">
+
+        </div>
 
     </main>
     <footer>

@@ -49,7 +49,7 @@ app.get('/logout', function(req, res) {
   res.redirect('/login');
 });
 app.get('/covid19', getCovid19);
-app.get('/corona/search', getSearchCorona);
+// app.get('/corona/search', getSearchCorona);
 app.get('/searches/find', showForm); // Shows the form of search
 app.post('/searches', createSearch); // Renders the result of the search
 
@@ -68,28 +68,14 @@ function getCovid19(req, res) {
   res.render('pages/corona-page/search');
 }
 
-function getSearchCorona(req, res) {
-  let param = req.query.country;
-  console.log(param);
-  superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
-    const dataByCountry = {
-      name: param,
-      dates: [],
-      deaths: [],
-      recovered: [],
-      active: [],
-      confirmed: []
-    }
-    retData.body.forEach(elem => {
-      dataByCountry.dates.push(elem.Date);
-      dataByCountry.deaths.push(elem.Deaths);
-      dataByCountry.recovered.push(elem.Recovered);
-      dataByCountry.confirmed.push(elem.Confirmed);
-      dataByCountry.active.push(elem.Active);
-    });
-    res.send(dataByCountry);
-  });
-}
+// function getSearchCorona(req, res) {
+//   let param = req.query.country;
+//   console.log(param);
+//   superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
+//     );
+//     res.send(dataByCountry);
+//   });
+// }
 
 function createSearch(req, res) {
   let location = req.body.location;
