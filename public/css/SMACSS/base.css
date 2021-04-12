@@ -2,7 +2,9 @@
     box-sizing: border-box;
 }
 
-
+body {
+    background-color: #fff8dc;
+}
 
 a {
     color: black;
@@ -10,8 +12,11 @@ a {
     display: inline-block;
 }
 
+label {
+    display: block;
+}
+
 a:hover {
     text-decoration: underline;
     color: blueviolet;
 }
-

@@ -25,7 +25,7 @@ nav ul {
     max-width: 480px;
     width: 480px;
     height: 100vh;
-    background-color: black;
+    background-color: #f8de7e;
     top: 0;
     left: 0;
     display: flex;
@@ -35,7 +35,6 @@ nav ul {
     align-items: left;
     position: absolute;
     transform: translateY(-100vh);
-    transition: 0.5s linear;
 }
 
 nav ul li {
@@ -71,7 +70,6 @@ nav ul li {
     z-index: 6;
     transition: 0.5s ease-out;
     transform-origin: right;
-
 }
 
 header nav input[type="checkbox"] {
@@ -88,13 +86,57 @@ header nav input[type="checkbox"] {
 
 
 header nav ul li a {
+    line-height: 150%;
     color: white;
     font-size: 2rem;
+    position: relative;
     font-family: 'russo one';
 }
 
+header nav ul li a:hover {
+    color: #4d1a7f;
+    transition: 0.5s ease;
+    text-decoration: none;
+}
+
+header nav ul li a::before,
+header nav ul li a::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+header nav ul li a::before {
+    transform: translateX(100%);
+}
+
+header nav ul li a::after {
+    transform: translateX(-100%);
+
+}
+
+header nav ul li a:hover::before,
+header nav ul li a:hover::after {
+    transition: 0.5s ease;
+    transform: translateX(0);
+}
+
+header nav ul li a:hover::before {
+    border-top: 5px solid black;
+}
+
+header nav ul li a:hover::after {
+    border-bottom: 5px solid black;
+}
+
+
 header nav input[type="checkbox"]:checked~ul {
     transform: translateY(0);
+    transition: 0.5s linear;
+
 }
 
 header nav input[type="checkbox"]:checked~div .hamburger {

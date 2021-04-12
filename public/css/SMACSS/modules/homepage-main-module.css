@@ -39,9 +39,9 @@ main section:first-child a {
 }
 
 #mainLinks a {
-    background-color: thistle;
+    background-color: #9c7c38;
     font-size: 1.5rem;
-    color: black;
+    color: #fff8dc;
     text-align: center;
     height: 10vh;
     width: 80%;
