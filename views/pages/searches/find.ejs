@@ -3,7 +3,7 @@
 
 <head>
     <%- include('../../partials/layout/head') %>
-        <title>Find a Doctor</title>
+    <title>Find a Doctor</title>
 </head>
 
 <body>
@@ -14,11 +14,11 @@
     <main>
         <section>
             <fieldset>
-                <form action="/searches" method="POST">
+                <form action="/searches" method="post">
 
                     <input type="text" name="location" placeholder="Enter Location" required>
 
-                    <select  type="text" name="speciality" placeholder="Enter Speciality" required>
+                    <select type="text" name="speciality" placeholder="Enter Speciality" required>
                         <option value="Dental">Dental</option>
                         <option value="Ophthalmology">Ophthalmology / Eye Care</option>
                         <option value="Orthopedic">Orthopedic</option>
