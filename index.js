@@ -145,7 +145,7 @@ function Doctor(info, speciality, available) {
 
 
 function reserveAppointment(req, res) {
-  console.log('HERRRRRRRRRRR   :::::', req.session.id);
+  console.log('HERRRRRRRRRRR   :::::', req.session.patientId);
   let {
     docName,
     docSpec,
@@ -160,11 +160,11 @@ function reserveAppointment(req, res) {
     if (data.rows.length > 0) {
       doc_id = data.rows[0].doctor_id;
     }
-  })
-  // let SQL = 'insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)'
-  // client.query(SQL, appArr).then(() => {
-
-  // });
+    // let SQL = 'insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)'
+    // client.query(SQL, appArr).then(() => {
+  
+    // });
+  });
 }
 
 function getSignUpPage(req, res) {
@@ -191,9 +191,11 @@ function registerUser(req, res) {
     password: req.body.psw,
     confirm_password: req.body['psw-repeat']
   };
+  console.log(inputData);
   // check unique email address
-  const SQL = 'SELECT * FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE e_mail = $1';
+  const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail = $1';
   client.query(SQL, [inputData.email_address]).then((data) => {
+    console.log(data.rows);
     if (data.rowCount > 0) {
       msg = inputData.email_address + ' was already exist';
       // check if both passwords fields matched
@@ -206,10 +208,11 @@ function registerUser(req, res) {
       let SQL = 'INSERT INTO Patient (patient_first_name, patient_last_name, gender, patient_password) VALUES ($1, $2, $3, $4) RETURNING *';
       let SQL2 = 'INSERT INTO Contact (e_mail,pat_id) values ($1,$2)'
       client.query(SQL, val).then((result) => {
+        console.log(result.rows);
         const {
-          pat_id
+          patient_id
         } = result.rows[0];
-        client.query(SQL2, [inputData.email_address, pat_id])
+        client.query(SQL2, [inputData.email_address, patient_id])
       });
     }
     // redirect to register page with an alert msg confirm what happen
@@ -224,13 +227,14 @@ function registerUser(req, res) {
 function getLogin(req, res) {
   let emailAddress = req.body.email;
   let password = req.body.psw;
-  const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.email_address =$1 AND Patient.password =$2';
+  const SQL = 'SELECT * FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail =$1 AND Patient.patient_password =$2';
   client.query(SQL, [emailAddress, password]).then((data) => {
     if (data.rowCount > 0) {
       req.session.loggedinUser = true;
+      req.session.patientId = data.rows[0].patient_id;
       req.session.emailAddress = emailAddress;
       req.session.gender = data.rows[0].gender;
-      req.session.name = `${data.rows[0].first_name} ${data.rows[0].last_name}`;
+      req.session.name = `${data.rows[0].patient_first_name} ${data.rows[0].patient_last_name}`;
       res.redirect('/profile');
     } else {
       msg = 'Your Email Address or password is wrong';
@@ -244,6 +248,7 @@ function getLogin(req, res) {
 
 function getProfile(req, res) {
   if (req.session.loggedinUser) {
+    console.log(req.session);
     res.render('pages/user/profile', {
       data: req.session
     });
@@ -257,15 +262,22 @@ app.get('*', getErrorPage);
 function getErrorPage(req, res) {
   res.render('pages/error');
 }
-app.listen(PORT, () => {
-  console.log('listeneing on ', PORT);
-});
+
+client.connect().then(
+  app.listen(PORT, () => {
+    console.log('Listeneing on', PORT);
+  })
+);
 
 
-
-function updateOnePatient (request,response){
-  const patient_id= request.params.patient_id;
-  const {name,speciallity , location, availibility} = request.body;
+function updateOnePatient(request, response) {
+  const patient_id = request.params.patient_id;
+  const {
+    name,
+    speciallity,
+    location,
+    availibility
+  } = request.body;
   let values = [name, speciallity, location, availibility, patient_id];
   const SQL = `UPDATE Patient SET 
                                 name             =  $1  ,
@@ -273,18 +285,18 @@ function updateOnePatient (request,response){
                                 location         =  $3  ,
                                 availibility     =  $4  
                                 WHERE patient_id =  $5  `
-  client.query(SQL, values).then(results=> {
+  client.query(SQL, values).then(results => {
     response.redirect(`/pages/user/profile/${patient_id}`);
-})
+  })
 }
 
 
-function deleteOnePatient(request,response){
+function deleteOnePatient(request, response) {
   const patient_id = request.params.patient_id;
   let values = [patient_id];
-  const SQL=`DELETE FROM Patient
+  const SQL = `DELETE FROM Patient
                               WHERE Patient_id   = $1  `
-  client.query(SQL, values).then(results=> {
+  client.query(SQL, values).then(results => {
     response.redirect(`/pages/user/profile`);
-})
+  })
 }
