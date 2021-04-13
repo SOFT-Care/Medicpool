@@ -3,7 +3,7 @@
 
 <head>
     <%- include('../../partials/layout/head') %>
-        <title>Find Results</title>
+    <title>Find Results</title>
 </head>
 
 <body>
@@ -14,25 +14,28 @@
     <main>
         <% searchResults.forEach (searchResults=> { %>
 
-            <section class="dr_card">
-                <!-- <img src=""> -->
-                <h3>Name : <%= searchResults.name %>
-                </h3>
-                <h3>Speciality : <%= searchResults.speciality %>
-                </h3>
-                <h3>Location : <%= searchResults.location %>
-                </h3>
+        <section class="dr_card">
+            <!-- <img src=""> -->
+            <h3>Name : <%= searchResults.name %>
+            </h3>
+            <h3>Speciality : <%= searchResults.speciality %>
+            </h3>
+            <h3>Location : <%= searchResults.location %>
+            </h3>
+            <h3>Availibility : <%= searchResults.availability%></h3>
 
-                <% if(searchResults.availibility==true){ %>
-                    <h3>Availibility : Availible</h3>
-                    <% } else{ %>
-                        <h3>Availibility : Not Availible</h3>
-                        <% } %>
-
-                            <button>Reserve Appointment</button>
-            </section>
-            <br>
-            <% }) %>
+            <form action="/reserve" method="post">
+                <input style="display: none;" type="text" name="docName" value="<%= searchResults.name%>">
+                <input style="display: none;" type="text" name="docSpec" value="<%= searchResults.speciality%>">
+                <input style="display: none;" type="text" name="docLoc" value="<%= searchResults.location %>">
+                <input style="display: none;" type="text" name="timeFrom" value="<%= time%>">
+                <input style="display: none;" type="text" name="timeTo" value="<%= (parseInt(time)+100).toString() %>">
+                <input style="display: none;" type="text" name="day" value="<%= dateTime %>">
+                <input type="submit" value="Book Appointment">
+            </form>
+        </section>
+        <br>
+        <% }) %>
     </main>
     <footer>
 

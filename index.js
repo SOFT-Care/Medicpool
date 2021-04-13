@@ -52,15 +52,14 @@ app.get('/logout', function (req, res) {
   res.redirect('/login');
 });
 app.get('/covid19', getCovid19);
-// app.get('/corona/search', getSearchCorona);
 app.get('/searches/find', showForm); // Shows the form of search
 app.post('/searches', createSearch); // Renders the result of the search
-
+app.post('/reserve', reserveAppointment);
 
 function getHomePage(req, res) {
   res.render('pages/index');
 }
-var msg = '';
+let msg = '';
 
 
 function showForm(request, response) {
@@ -71,103 +70,90 @@ function getCovid19(req, res) {
   res.render('pages/corona-page/search');
 }
 
-// function getSearchCorona(req, res) {
-//   let param = req.query.country;
-//   console.log(param);
-//   superagent.get(`https://api.covid19api.com/country/${param}?from=2021-03-01T00:00:00Z&to=2020-04-01T00:00:00Z`).then(retData => {
-//     );
-//     res.send(dataByCountry);
-//   });
-// }
+function doctorWorkHours() {
+  this['0'] = [];
+  this['1'] = [];
+  this['2'] = [];
+  this['3'] = [];
+  this['4'] = [];
+  this['5'] = [];
+  this['6'] = [];
+}
 
-
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-function createSearch(req, res) {
-  // console.log(req.body);
+async function createSearch(req, res) {
+  let isAvailable = false;
+  let docArr = [];
   let location = req.body.location;
   let speciality = req.body.speciality;
   let time = req.body.time;
-  let day = new Date(req.body.date);
-  let dayName = days[day.getDay()];
-
+  let date = new Date(req.body.date);
   let key = process.env.GOOGLE_AUTH;
-  let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?region=${location}&input=${speciality}+clinic&inputtype=textquery&key=${key}`;
-
-  superagent.get(url)
-    .then(apiResponse => {
-      return apiResponse.body.results.map(doctorResult => {
-
-        superagent.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${key}&place_id=${doctorResult.place_id}`).then(retData => {
-
-          let hours = retData.body.result.opening_hours ? retData.body.result.opening_hours : "No available opening hours";
-          let available = "";
-          if (hours != "No available opening hours") {
-            hours = hours.weekday_text.map(time => {
-              return time.split(": ");
-            })
-            // console.log(hours);
-
-            hours.forEach(day => {
-              if (day[0].toLowerCase() == dayName.toLowerCase()) {
-                if (day[1].toLowerCase() == "closed") {
-                  available = `Not Available, We are closed on ${dayName}`;
-                } else if (day[1].toLowerCase() == "open 24 hours") {
-                  available = `Open 24 hours, Welcome anytime`;
-                } else {
-                  console.log(day[1]);
-                  let regex = /[–,]/;
-                  let rangeHours = day[1].split(regex);
-                  rangeHours = rangeHours.map(elem => {
-                    return elem.trim().split(" ")
-                  });
-                  rangeHours.forEach((elem, i) => {
-                    if (elem.includes("PM")) {
-                      let h = rangeHours[i][0];
-                      rangeHours[i][0] = `${newH}:${newM}`;
-                      console.log("hoursssssssssss", rangeHours[i][0]);
-                    }
-                  })
-                  // console.log(rangeHours);
-                }
+  let hourTime = '';
+  let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?region=${location}&input=${speciality}+doctor+clinic+${location}&inputtype=textquery&key=${key}`;
+  superagent.get(url).then(async apiResponse => {
+    let docList = apiResponse.body.results.filter(elem => elem.opening_hours);
+    for (let i = 0; i < docList.length; i++) {
+      await superagent.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${key}&place_id=${docList[i].place_id}`)
+        .then(retData => {
+          if (retData.body.result.opening_hours && retData.body.result.opening_hours.periods.length > 2) {
+            let newDocTimes = new doctorWorkHours();
+            retData.body.result.opening_hours.periods.forEach(time => {
+              let timeOpenFormated = time.open.time;
+              newDocTimes[time.open.day].push(timeOpenFormated);
+              let timeCloseFormated = time.close.time;
+              newDocTimes[time.close.day].push(timeCloseFormated);
+            });
+            let reservationDay = date.getDay();
+            if (newDocTimes[`${reservationDay}`].length > 0) {
+              hourTime = time.replace(':', '');
+              if (parseInt(hourTime) > parseInt(newDocTimes[`${reservationDay}`][0]) && parseInt(hourTime) < parseInt(newDocTimes[`${reservationDay}`][1])) {
+                isAvailable = true;
               }
-
-            })
-
-          } else {
-            available = "No available opening hours, call the clinic";
+            }
+            docArr.push(new Doctor(docList[i], speciality, isAvailable))
           }
-          console.log(available);
-          return new Doctor(doctorResult, req, available);
         });
-
-      });
+    }
+    res.render('pages/searches/results', {
+      searchResults: docArr,
+      dateTime: req.body.date,
+      time: hourTime
     });
-  // .then((results) => {
-  //     // console.log(results);
-  //     // res.render('pages/searches/results', { searchResults: results })
-  // })
-}
+  });
+};
 
-
-
-
-function Doctor(info, request, available) {
+function Doctor(info, speciality, available) {
   this.name = info.name;
-  this.speciality = request.body.speciality;
+  this.speciality = speciality;
   this.location = info.formatted_address;
-  this.availability = available;
-
-  // console.log(hours.weekday_text);
-
-
-  // console.log(request.body.date,dayName);
-  // console.log(this);
+  this.availability = available ? 'Available' : 'Not Available';
+  // this.img = info.
 }
 
 
 
+function reserveAppointment(req, res) {
+  console.log('HERRRRRRRRRRR   :::::', req.session.id);
+  let {
+    docName,
+    docSpec,
+    docLoc,
+    timeFrom,
+    timeTo,
+    day
+  } = req.body;
+  let appArr = [day, timeFrom, timeTo];
+  let doc_id = 0;
+  client.query('select * from Doctor where doctor_name=$1', [docName]).then(data => {
+    if (data.rows.length > 0) {
+      doc_id = data.rows[0].doctor_id;
+    }
+  })
+  // let SQL = 'insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)'
+  // client.query(SQL, appArr).then(() => {
 
+  // });
+}
 
 function getSignUpPage(req, res) {
 
@@ -194,7 +180,7 @@ function registerUser(req, res) {
     confirm_password: req.body['psw-repeat']
   };
   // check unique email address
-  const SQL = 'SELECT * FROM registration WHERE email_address = $1';
+  const SQL = 'SELECT * FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE e_mail = $1';
   client.query(SQL, [inputData.email_address]).then((data) => {
     if (data.rowCount > 0) {
       msg = inputData.email_address + ' was already exist';
@@ -204,9 +190,15 @@ function registerUser(req, res) {
     } else {
       // save a new user data into database
       msg = 'Your are successfully registered';
-      const val = [inputData.first_name, inputData.last_name, inputData.email_address, inputData.gender, inputData.password];
-      var SQL = 'INSERT INTO registration (first_name, last_name, email_address, gender, password) VALUES ($1, $2, $3, $4, $5) ';
-      client.query(SQL, val).then(() => {});
+      const val = [inputData.first_name, inputData.last_name, inputData.gender, inputData.password];
+      let SQL = 'INSERT INTO Patient (patient_first_name, patient_last_name, gender, patient_password) VALUES ($1, $2, $3, $4) RETURNING *';
+      let SQL2 = 'INSERT INTO Contact (e_mail,pat_id) values ($1,$2)'
+      client.query(SQL, val).then((result) => {
+        const {
+          pat_id
+        } = result.rows[0];
+        client.query(SQL2, [inputData.email_address, pat_id])
+      });
     }
     // redirect to register page with an alert msg confirm what happen
     res.render('pages/user/signup', {
@@ -220,7 +212,7 @@ function registerUser(req, res) {
 function getLogin(req, res) {
   let emailAddress = req.body.email;
   let password = req.body.psw;
-  const SQL = 'SELECT * FROM registration WHERE email_address =$1 AND password =$2';
+  const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.email_address =$1 AND Patient.password =$2';
   client.query(SQL, [emailAddress, password]).then((data) => {
     if (data.rowCount > 0) {
       req.session.loggedinUser = true;
