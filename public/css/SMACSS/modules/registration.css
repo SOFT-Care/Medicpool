@@ -1,0 +1,21 @@
+#signup {
+    width: 100%;
+    height: fit-content;
+    padding: 2rem;
+    text-align: center;
+}
+
+#signup  input {
+    margin: 0.5rem 0;
+    height: 5vh;
+    padding: 0.5rem;
+}
+
+#signup label {
+    font-size: 1.2rem;
+}
+
+#signupcontainer {
+    width: 100% ;
+    margin: auto;
+}

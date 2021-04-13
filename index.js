@@ -1,5 +1,4 @@
 'use strict';
-
 require('dotenv').config();
 const PORT = process.env.PORT;
 const express = require('express');
@@ -11,13 +10,9 @@ const superagent = require('superagent');
 const cors = require('cors');
 const methodOverride = require('method-override');
 const { log } = require('console');
-
 app.use(cors());
-
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => console.log('PG Error', err));
-
-
 app.use(express.urlencoded({
   extended: true
 }));
@@ -35,12 +30,10 @@ app.use('/jquery', express.static(path.join(__dirname + '/node_modules/jquery/di
 app.use(express.static(path.join(__dirname, 'data')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
-
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
-
 // Get requests
 app.get('/', getHomePage);
 app.get('/signup', getSignUpPage);
@@ -56,40 +49,23 @@ app.get('/covid19', getCovid19);
 app.get('/searches/find', showForm); // Shows the form of search
 app.post('/searches', createSearch); // Renders the result of the search
 app.post('/reserve', reserveAppointment);
-
 //Update Patient Informaion
 app.get('/editprofile', renderUpdatePatient);
 app.put('/editprofile', updateOnePatient);
-
-
-
 //Save Updated Patient Information 
 app.post('/')
 //Delect Patient From DataBase
 app.delete('/deleteprofile', deleteOnePatient);
-
-
-
-
-
-
-
-
-
 function getHomePage(req, res) {
   res.render('pages/index');
 }
 let msg = '';
-
-
 function showForm(request, response) {
   response.render('pages/searches/find');
 }
-
 function getCovid19(req, res) {
   res.render('pages/corona-page/search');
 }
-
 function doctorWorkHours() {
   this['0'] = [];
   this['1'] = [];
@@ -99,8 +75,7 @@ function doctorWorkHours() {
   this['5'] = [];
   this['6'] = [];
 }
-
-async function createSearch(req, res) {
+function createSearch(req, res) {
   let isAvailable = false;
   let docArr = [];
   let location = req.body.location;
@@ -141,7 +116,6 @@ async function createSearch(req, res) {
     });
   });
 };
-
 function Doctor(info, speciality, available) {
   this.name = info.name;
   this.speciality = speciality;
@@ -149,9 +123,6 @@ function Doctor(info, speciality, available) {
   this.availability = available ? 'Available' : 'Not Available';
   // this.img = info.
 }
-
-
-
 function reserveAppointment(req, res) {
   console.log('HERRRRRRRRRRR   :::::', req.session.patientId);
   let {
@@ -170,25 +141,19 @@ function reserveAppointment(req, res) {
     }
     // let SQL = 'insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)'
     // client.query(SQL, appArr).then(() => {
-  
     // });
   });
 }
-
 function getSignUpPage(req, res) {
-
   res.render('pages/user/signup', {
     alertMsg: msg
   });
 }
-
 function getLoginPage(req, res) {
-
   res.render('pages/user/login', {
     alertMsg: msg
   });
 }
-
 function registerUser(req, res) {
   // get the user data from the form
   let inputData = {
@@ -229,10 +194,7 @@ function registerUser(req, res) {
       alertMsg: msg
     });
   });
-
 }
-
-
 function getLogin(req, res) {
   let emailAddress = req.body.email;
   let password = req.body.psw;
@@ -255,8 +217,6 @@ function getLogin(req, res) {
     }
   });
 }
-
-
 function getProfile(req, res) {
   if (req.session.loggedinUser) {
     console.log(req.session);
@@ -267,20 +227,15 @@ function getProfile(req, res) {
     res.redirect('/login');
   }
 }
-
 app.get('*', getErrorPage);
-
 function getErrorPage(req, res) {
   res.render('pages/error');
 }
-
 client.connect().then(
   app.listen(PORT, () => {
     console.log('Listeneing on', PORT);
   })
 );
-
-
 function updateOnePatient (request,response){
   const patientId= request.session.patientId;
   const {firstName,lastName,gender,dateOfBirth,password} = request.body;
@@ -297,34 +252,22 @@ function updateOnePatient (request,response){
                                  WHERE patient_id =  $6  ` ;
   client.query(SQL, values).then(results=>{
     msg ='Your Profile has been Updated';
-
 })
-
 const SQL2 = `UPDATE Contact  SET
                               e_mail = $1  WHERE pat_id =$2`;
-
  client.query(SQL2, values2).then(results=>{
-
 response.redirect(`/login`);
 })
 }
-
 function renderUpdatePatient(request,response){
 console.log('session is ', request.session.patientId);
   // response.render('/pages/user/editprofile')
   const SQL = `SELECT * FROM Patient WHERE patient_id = $1 `;
   client.query(SQL,[request.session.patientId]).then(data =>{
     console.log('data.row' ,  data.rows);
-
     response.render('pages/user/editprofile', { user : data.rows[0] });
-
-    
   })
 }
-
-
-
-
 function deleteOnePatient(request, response) {
   const patientId = request.params.patientId;
   let values = [patientId];
