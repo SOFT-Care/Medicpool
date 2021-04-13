@@ -10,8 +10,8 @@ body {
     justify-content: space-between;
     align-items: center;
     min-height: 100vh;
-    max-width: 480px;
-    margin: 0 auto;
+    /* max-width: 480px; */
+    /* margin: 0 auto; */
 }
 
 header {
