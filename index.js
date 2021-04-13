@@ -58,10 +58,17 @@ app.post('/searches', createSearch); // Renders the result of the search
 
 
 //Update Patient Informaion
-app.put('/pages/user/profile:patient_id', updateOnePatient);
+app.get('/editprofile', renderUpdatePatient);
+app.put('/editprofile', updateOnePatient);
 
+
+
+//Save Updated Patient Information 
+app.post('/')
 //Delect Patient From DataBase
-app.delete('/pages/user/profile:patient_id', deleteOnePatient);
+app.delete('/deleteprofile', deleteOnePatient);
+
+
 
 
 
@@ -245,7 +252,9 @@ function getLogin(req, res) {
   const SQL = 'SELECT * FROM registration WHERE email_address =$1 AND password =$2';
   client.query(SQL, [emailAddress, password]).then((data) => {
     if (data.rowCount > 0) {
+      console.log(data.rows[0]);
       req.session.loggedinUser = true;
+      req.session.patientId= data.rows[0].id;
       req.session.emailAddress = emailAddress;
       req.session.gender = data.rows[0].gender;
       req.session.name = `${data.rows[0].first_name} ${data.rows[0].last_name}`;
@@ -275,33 +284,53 @@ app.get('*', getErrorPage);
 function getErrorPage(req, res) {
   res.render('pages/error');
 }
-app.listen(PORT, () => {
-  console.log('listeneing on ', PORT);
-});
+client.connect().then(
+  app.listen(PORT, () => {
+    console.log('Listeneing on', PORT);
+  })
+);
 
 
 
 function updateOnePatient (request,response){
-  const patient_id= request.params.patient_id;
-  const {name,speciallity , location, availibility} = request.body;
-  let values = [name, speciallity, location, availibility, patient_id];
-  const SQL = `UPDATE Patient SET 
-                                name             =  $1  ,
-                                speciallity      =  $2  , 
-                                location         =  $3  ,
-                                availibility     =  $4  
-                                WHERE patient_id =  $5  `
-  client.query(SQL, values).then(results=> {
-    response.redirect(`/pages/user/profile/${patient_id}`);
+  const patientId= request.session.patientId;
+  const {firstName,lastName ,gender,email,password} = request.body;
+  let values = [firstName,lastName ,gender,email,password,patientId];
+  const SQL = `UPDATE registration SET 
+                                first_name       =  $1  ,
+                                last_name        =  $2  , 
+                                gender           =  $3  ,
+                                email_address    =  $4  ,
+                                password         = $5       
+                                WHERE id =  $6  ` ;
+  client.query(SQL, values).then(results=>{
+    msg ='Your Profile has been Updated';
+
+    response.redirect(`/pages/user/profile`,{alertMsg:msg});
 })
 }
+
+function renderUpdatePatient(request,response){
+console.log('session is ', request.session.id);
+  // response.render('/pages/user/editprofile')
+  const SQL = `SELECT * FROM registration WHERE id = $1 `;
+  client.query(SQL,[request.session.patientId]).then(data =>{
+    console.log('data.row' ,  data.rows);
+
+    response.render('pages/user/editprofile', { user : data.rows[0] });
+
+    
+  })
+}
+
+
 
 
 function deleteOnePatient(request,response){
   const patient_id = request.params.patient_id;
   let values = [patient_id];
   const SQL=`DELETE FROM Patient
-                              WHERE Patient_id   = $1  `
+                              WHERE Patient_id   = $1  ` ;
   client.query(SQL, values).then(results=> {
     response.redirect(`/pages/user/profile`);
 })
