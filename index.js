@@ -10,6 +10,7 @@ const app = express();
 const superagent = require('superagent');
 const cors = require('cors');
 const methodOverride = require('method-override');
+const { log } = require('console');
 
 app.use(cors());
 
@@ -195,10 +196,11 @@ function registerUser(req, res) {
     last_name: req.body.lname,
     email_address: req.body.email,
     gender: req.body.gender,
+    dateOfBirth:req.body.birthday,
     password: req.body.psw,
     confirm_password: req.body['psw-repeat']
   };
-  console.log(inputData);
+  console.log('input data', inputData);
   // check unique email address
   const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail = $1';
   client.query(SQL, [inputData.email_address]).then((data) => {
@@ -211,8 +213,8 @@ function registerUser(req, res) {
     } else {
       // save a new user data into database
       msg = 'Your are successfully registered';
-      const val = [inputData.first_name, inputData.last_name, inputData.gender, inputData.password];
-      let SQL = 'INSERT INTO Patient (patient_first_name, patient_last_name, gender, patient_password) VALUES ($1, $2, $3, $4) RETURNING *';
+      const val = [inputData.first_name, inputData.last_name, inputData.gender, inputData.dateOfBirth, inputData.password];
+      let SQL = 'INSERT INTO Patient (patient_first_name, patient_last_name, gender, date_of_birth, patient_password) VALUES ($1, $2, $3, $4, $5) RETURNING *';
       let SQL2 = 'INSERT INTO Contact (e_mail,pat_id) values ($1,$2)'
       client.query(SQL, val).then((result) => {
         console.log(result.rows);
@@ -242,6 +244,7 @@ function getLogin(req, res) {
       req.session.patientId = data.rows[0].patient_id;
       req.session.emailAddress = emailAddress;
       req.session.gender = data.rows[0].gender;
+      req.session.dateOfBirth = data.rows[0].date_of_birth;
       req.session.name = `${data.rows[0].patient_first_name} ${data.rows[0].patient_last_name}`;
       res.redirect('/profile');
     } else {
@@ -280,26 +283,36 @@ client.connect().then(
 
 function updateOnePatient (request,response){
   const patientId= request.session.patientId;
-  const {firstName,lastName ,gender,email,password} = request.body;
-  let values = [firstName,lastName ,gender,email,password,patientId];
-  const SQL = `UPDATE registration SET 
-                                first_name       =  $1  ,
-                                last_name        =  $2  , 
-                                gender           =  $3  ,
-                                email_address    =  $4  ,
-                                password         = $5       
-                                WHERE id =  $6  ` ;
+  const {firstName,lastName,gender,dateOfBirth,password} = request.body;
+  let values = [firstName,lastName ,gender,dateOfBirth,password,patientId];
+  const email=request.body.email;
+  let values2=[email, patientId];
+  console.log('values', values2);
+  const SQL = `UPDATE  Patient SET 
+                                 patient_first_name  = $1   ,
+                                 patient_last_name   = $2   , 
+                                 gender              = $3   ,
+                                 date_of_birth        = $4   ,
+                                 patient_password    = $5   
+                                 WHERE patient_id =  $6  ` ;
   client.query(SQL, values).then(results=>{
     msg ='Your Profile has been Updated';
 
-    response.redirect(`/pages/user/profile`,{alertMsg:msg});
+})
+
+const SQL2 = `UPDATE Contact  SET
+                              e_mail = $1  WHERE pat_id =$2`;
+
+ client.query(SQL2, values2).then(results=>{
+
+response.redirect(`/login`);
 })
 }
 
 function renderUpdatePatient(request,response){
-console.log('session is ', request.session.id);
+console.log('session is ', request.session.patientId);
   // response.render('/pages/user/editprofile')
-  const SQL = `SELECT * FROM registration WHERE id = $1 `;
+  const SQL = `SELECT * FROM Patient WHERE patient_id = $1 `;
   client.query(SQL,[request.session.patientId]).then(data =>{
     console.log('data.row' ,  data.rows);
 
@@ -313,8 +326,8 @@ console.log('session is ', request.session.id);
 
 
 function deleteOnePatient(request, response) {
-  const patient_id = request.params.patient_id;
-  let values = [patient_id];
+  const patientId = request.params.patientId;
+  let values = [patientId];
   const SQL = `DELETE FROM Patient
                               WHERE Patient_id   = $1  `
   client.query(SQL, values).then(results => {
