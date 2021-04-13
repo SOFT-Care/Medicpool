@@ -101,6 +101,7 @@ function createSearch(req, res) {
         superagent.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${key}&place_id=${doctorResult.place_id}`).then(retData => {
 
           let hours = retData.body.result.opening_hours ? retData.body.result.opening_hours : "No available opening hours";
+          console.log(time);
           let available = "";
           if (hours != "No available opening hours") {
             hours = hours.weekday_text.map(time => {
