@@ -30,8 +30,8 @@ header {
 }
 
 section {
-    max-width: 480px;
-    width: 95%;
+    /* max-width: 480px;
+    width: 95%; */
 }
 
 img {
