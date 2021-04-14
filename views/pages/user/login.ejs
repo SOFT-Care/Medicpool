@@ -13,57 +13,28 @@
         <%- include('../../partials/layout/header')  %>
     </header>
     <main>
-        <div id="login-button">
-            <img src="https://dqcgrsy5v35b9.cloudfront.net/cruiseplanner/assets/img/icons/login-w-icon.png">
-            </img>
-        </div>
-        <div id="container">
-            <h1>Log In</h1>
-            <span class="close-btn">
-                <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
-            </span>
-
-            <form method="post" action="/login">
-                <input type="email" name="email" required placeholder="E-mail">
-                <input type="password" name="psw" required placeholder="Password">
-               <input type="submit" value="Sign in">
-                <div id="remember-container">
-                    <input type="checkbox" id="checkbox-2-1" class="checkbox" checked="checked" />
-                    <span id="remember">Remember me</span>
-                    <span id="forgotten">Forgotten password</span>
-                </div>
-            </form>
-        </div>
-
-        <!-- Forgotten Password Container -->
-        <div id="forgotten-container">
-            <h1>Forgotten</h1>
-            <span class="close-btn">
-                <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
-            </span>
-
-            <form>
-                <input type="email" name="email" placeholder="E-mail">
-                <a href="#" class="orange-btn">Get new password</a>
-            </form>
-        </div>
-        <!-- <section>
-            <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
+        <div class="login-box">
+            <h2>Login</h2>
             <form action="/login" method="post">
-                <fieldset>
-                    <legend>Sign in</legend>
-
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter your Email" name="email" required><br>
-
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter your Password" name="psw" required><br>
-
-                    <input type="submit" value="Sign in">
-
-                </fieldset>
+                <div class="user-box">
+                    <label for="usrName">Username</label>
+                    <input type="text" id="usrName" name="email" required>
+                </div>
+                <div class="user-box">
+                    <label>Password</label>
+                    <input type="password" name="psw" required>
+                </div>
+                <button type="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Submit
+                </button>
             </form>
-        </section> -->
+        </div>
+        <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
+        
     </main>
     <footer>
 

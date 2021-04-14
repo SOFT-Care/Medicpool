@@ -56,6 +56,8 @@ app.put('/editprofile', updateOnePatient);
 app.post('/')
 //Delect Patient From DataBase
 app.delete('/deleteprofile', deleteOnePatient);
+app.get('/contact', contactUs);
+app.get('/about', AboutUs);
 
 function getHomePage(_req, res) {
   res.render('pages/index');
@@ -69,17 +71,20 @@ function showForm(_request, response) {
 function getCovid19(_req, res) {
   res.render('pages/corona-page/search');
 }
-
-class doctorWorkHours {
-  constructor() {
-    this['0'] = [];
-    this['1'] = [];
-    this['2'] = [];
-    this['3'] = [];
-    this['4'] = [];
-    this['5'] = [];
-    this['6'] = [];
-  }
+function contactUs(req, res) {
+  res.render('pages/contact');
+}
+function AboutUs(req, res) {
+  res.render('pages/about');
+}
+function doctorWorkHours() {
+  this['0'] = [];
+  this['1'] = [];
+  this['2'] = [];
+  this['3'] = [];
+  this['4'] = [];
+  this['5'] = [];
+  this['6'] = [];
 }
 
 function createSearch(req, res) {
@@ -303,14 +308,14 @@ function updateOnePatient(request, response) {
                                  patient_first_name  = $1   ,
                                  patient_last_name   = $2   , 
                                  gender              = $3   ,
-                                 date_of_birth        = $4   ,
+                                 date_of_birth       = $4   ,
                                  patient_password    = $5   
                                  WHERE patient_id =  $6  `;
   client.query(SQL, values).then(_results => {
     msg = 'Your Profile has been Updated';
     const SQL2 = `UPDATE Contact  SET
                               e_mail = $1  WHERE pat_id =$2`;
-    client.query(SQL2, values2).then(_results => {
+    client.query(SQL2, values2).then(results => {
       response.redirect(`/login`);
     });
   })
@@ -328,9 +333,7 @@ function renderUpdatePatient(request, response) {
     client.query(SQL2, [request.session.patientId]).then(dataTwo => {
       console.log('edit profile page variable sql2 ', dataTwo.rows[0]);
       const emailValue = dataTwo.rows[0]['e_mail'];
-      resultArr.push({
-        'email': emailValue
-      });
+      resultArr.push({ 'email': emailValue });
       console.log('edit profile page variable step2', resultArr);
       response.render('pages/user/editprofile', {
         user: resultArr
