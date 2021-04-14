@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head')  %>
+    <title>Edit your account</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header')  %>
+    </header>
+    <main>
+        <section>
+           
+            <form  method= "post" action="/editprofile?_method=PUT" >
+                <fieldset>
+                    <legend>Edit Your Profile</legend>
+
+                    <label for="First_Name"><b>First Name</b></label>
+                    <input type="text" placeholder="Enter New First_Name" name="firstName"  value="<%=user.patient_first_name%>"  required><br>
+
+                    <label for="Last_Name"><b>Last Name </b></label>
+                    <input type="text" placeholder="Enter New Last_Name" name="lastName" value="<%=user.patient_last_name%>"  required><br>
+
+
+                    <label for="gender"><b>  Gender  </b></label>
+                    <input type="text" placeholder="Enter New Gender" name="gender" value="<%=user.gender%>"  required><br>
+
+                    
+                    <label for="Date_Of_Birth"><b> Day Of Birth </b></label>
+                    <input type="date" placeholder="Enter New Birthday" name="dateOfBirth" value="<%=user.date_of_birth%>"  ><br>
+
+                    
+                    <label for="email"><b> Email </b></label>
+                    <input type="email" placeholder="Enter New E-mail" name="email" value="<%=user.e_mail%>"  required><br>
+
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter New Password" name="password" required><br>
+
+                    <input type="submit" value="Update">
+
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer')  %>
+    </footer>
+</body>
+
+</html>
