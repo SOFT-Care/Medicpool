@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head') %>
+    <title>Appointments</title>
+</head>
+
+<body>
+    <header>
+        <%- include('../../partials/layout/header') %>
+    </header>
+    <main>
+        <% elems.forEach(elem=>{ %>
+
+        <section class="appointmentCard">
+            <h2>Appointment Number: <%= elem.appoi_id %> </h2>
+            <div>
+                <h3>Date: on <%= elem.day %> </h3>
+                <h3>From: <%= elem.time_from.slice(0,2)+':'+elem.time_from.slice(2) %> </h3>
+                <h3>To: <%= elem.time_to.slice(0,2)+':'+elem.time_to.slice(2) %> </h3>
+                <h3>Dr/Clinic: <%= elem.doctor_name %> </h3>
+                <h3>Specialty: <%= elem.doctor_speciailty %> </h3>
+                <h3>Phone Number: <%= elem.phone_number %> </h3>
+                <h3>Address: <%= elem.doc_location %> </h3>
+            </div>
+        </section>
+        <% }) %>
+    </main>
+    <footer>
+        <%- include('../../partials/layout/footer') %>
+    </footer>
+</body>
+
+</html>

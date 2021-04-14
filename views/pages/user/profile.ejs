@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/layout/head')  %>
+    <title>Your Profile</title>
+</head>
+
+<body>
+    <header>
+
+        <%- include('../../partials/layout/header')  %>
+    </header>
+    <main>
+        <section>
+
+           
+            <div >
+                <img src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" />
+            </div>
+            <h2>Welcome <%=data.name %></h2>
+            <p>
+                <br>
+                <b> Your Name</b><br> <%=data.name %>
+            </p><br>
+            <p>
+                <b> Your Gender</b><br> <%=data.gender %>
+            </p><br>
+            <p>
+                <b>Date Of Birth</b><br>  <%=data.dateOfBirth %>
+            </p><br>
+            <p>
+                <b>Login Email</b><br>  <%=data.emailAddress %>
+            </p><br>
+            <p><a href="/logout">Logout</a></p>
+            <p><a method="get" href="/editprofile">Edit Profile</a></p>
+        </section>
+
+        
+    </main>
+    <footer>
+
+        <%- include('../../partials/layout/footer')  %>
+    </footer>
+</body>
+
+</html>

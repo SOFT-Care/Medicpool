@@ -1,0 +1,50 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 60vh;
+    align-items: center;
+    background-color: darkgray;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+}
+
+footer ul.socialMedia {
+    display: flex;
+    margin-top: 2reM;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    font-size: 4rem;
+    max-height: 20vh;
+}
+
+footer form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 30%;
+    border-radius: 20px;
+    height: 25vh;
+    border: 2px solid black;
+}
+
+footer form input {
+    margin: 0.5rem 0;
+    height: 5vh;
+    padding: 0.5rem;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+footer h5 {
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}

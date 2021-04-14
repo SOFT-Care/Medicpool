@@ -18,17 +18,17 @@
   },
   "homepage": "https://github.com/SOFT-Care/medicpool#readme",
   "dependencies": {
-    "chart.js": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "jquery": "^3.6.0",
     "method-override": "^3.0.0",
     "mustache": "^4.2.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
-    "superagent": "^6.1.0",
-    "unirest": "^0.6.0"
+    "superagent": "^6.1.0"
   }
 }

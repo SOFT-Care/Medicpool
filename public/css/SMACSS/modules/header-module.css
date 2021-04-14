@@ -1,0 +1,228 @@
+header>nav {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+header nav>a:nth-child(1) {
+    max-width: 20%;
+}
+
+header nav>a:nth-child(2) {
+    flex-grow: 1;
+}
+
+.logoImg {
+    width: 100%;
+}
+
+nav ul {
+    width: 100%;
+    height: 100vh;
+    background-color: #f8de7e;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    display: flex;
+    z-index: 5;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    position: absolute;
+}
+
+nav ul li {
+    height: 7vh;
+    margin-left: 2rem;
+}
+
+#logo {
+    font-family: 'Delius Swash Caps';
+    font-size: 2.5rem;
+    font-weight: 800;
+    width: 100%;
+    text-align: center;
+}
+
+
+.slidermenu {
+    width: 7vh;
+    height: 7vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: block;
+    width: 80%;
+    height: 0.7vh;
+    background-color: black;
+    z-index: 6;
+    transition: 0.5s ease-out;
+    transform-origin: right;
+}
+
+header nav input[type="checkbox"]#hambMenu {
+    position: absolute;
+    width: 7vh;
+    height: 7vh;
+    margin: 0;
+    right: 0;
+    top: 30%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 100;
+}
+
+
+
+header nav ul li a {
+    line-height: 150%;
+    color: white;
+    font-size: 1.5rem;
+    position: relative;
+    font-family: 'russo one';
+}
+
+header nav ul li a:hover {
+    color: #4d1a7f;
+    transition: 0.5s ease;
+    text-decoration: none;
+}
+
+header nav ul li a::before,
+header nav ul li a::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+header nav ul li a::before {
+    transform: translateX(100%);
+}
+
+header nav ul li a::after {
+    transform: translateX(-100%);
+
+}
+
+header nav ul li a:hover::before,
+header nav ul li a:hover::after {
+    transition: 0.5s ease;
+    transform: translateX(0);
+}
+
+header nav ul li a:hover::before {
+    border-top: 5px solid black;
+}
+
+header nav ul li a:hover::after {
+    border-bottom: 5px solid black;
+}
+
+
+header nav input[type="checkbox"]:checked~ul {
+    transform: translateY(0);
+    opacity: 1;
+    transition: 0.5s;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger {
+    background-color: white;
+}
+
+header nav input[type="checkbox"]:checked~.slidermenu {
+    transform: translateX(-5px);
+    z-index: 10;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger:first-child {
+    transform: rotate(-45deg);
+    width: 75%;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger:last-child {
+    transform: rotate(45deg);
+    width: 75%;
+}
+
+header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
+    transform: translatex(400%);
+    opacity: 0;
+}
+
+@media screen and (min-width: 481px) {
+    header{
+        max-width:100% ;
+        width: 100%;
+        height: fit-content;
+        min-height: 30vh;
+    }
+    h2#logo{
+        color: white;
+        font-size: 1rem;
+    }
+    header nav input[type="checkbox"]#hambMenu {
+        display: none;
+    }
+    img.logoImg{
+        width: 10vh;
+        background-color: rgba(255, 255, 255, 0.493);
+    }
+    nav{
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        flex-wrap: wrap;
+        background-color: black;
+    }
+
+    nav ul#navBar{
+        height: fit-content;
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+        transform: translateY(0);
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: max-content;
+        background-color: transparent;
+        flex-wrap: wrap;
+    }
+    nav ul#navBar li{
+        width: calc(fit-content+30px);
+        display: flex;
+        flex-direction: column;
+        margin: 0 0.75rem;
+        justify-content: center;
+        padding-left: 0.5rem;
+    }
+    nav ul#navBar li:hover{
+        background-color: #fff8dc;
+    }
+    nav ul#navBar li a{
+        width: fit-content;
+    }
+    nav ul#navBar li a::before,
+    nav ul#navBar li a::after{
+        display: none;
+        width: 0;
+        content: '';
+    }
+    .slidermenu{
+        display: none;
+    }
+}
