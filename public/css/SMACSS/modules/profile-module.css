@@ -1,0 +1,7 @@
+main{
+    min-height: 100vh;
+}
+.userPro{
+    width: 60%;
+    display: flex;
+}

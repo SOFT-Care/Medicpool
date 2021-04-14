@@ -4,6 +4,7 @@
 <head>
     <%- include('../../partials/layout/head')  %>
     <title>Your Profile</title>
+    <link rel="stylesheet" href="/css/SMACSS/modules/profile-module.css">
 </head>
 
 <body>
@@ -12,7 +13,8 @@
         <%- include('../../partials/layout/header')  %>
     </header>
     <main>
-        <section>
+         
+        <section class="userPro">
 
            
             <div >
@@ -21,7 +23,7 @@
             <h2>Welcome <%=data.name %></h2>
             <p>
                 <br>
-                <b> Your Name</b><br> <%=data.name %>
+                <b> User Name</b><br> <%=data.name %>
             </p><br>
             <p>
                 <b> Your Gender</b><br> <%=data.gender %>

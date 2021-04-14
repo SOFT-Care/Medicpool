@@ -254,7 +254,6 @@ function getLogin(req, res) {
   const SQL = 'SELECT * FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail =$1 AND Patient.patient_password =$2';
   client.query(SQL, [emailAddress, password]).then((data) => {
     if (data.rowCount > 0) {
-      console.log(data.rows[0]);
       req.session.loggedinUser = true;
       req.session.patientId = data.rows[0].patient_id;
       req.session.emailAddress = emailAddress;
@@ -303,7 +302,6 @@ function updateOnePatient(request, response) {
   let values = [firstName, lastName, gender, dateOfBirth, password, patientId];
   const email = request.body.email;
   let values2 = [email, patientId];
-  console.log('values', values2);
   const SQL = `UPDATE  Patient SET 
                                  patient_first_name  = $1   ,
                                  patient_last_name   = $2   , 
@@ -323,18 +321,14 @@ function updateOnePatient(request, response) {
 }
 
 function renderUpdatePatient(request, response) {
-  console.log('session is ', request.session.patientId);
-  // response.render('/pages/user/editprofile')
   const SQL = `SELECT * FROM Patient WHERE patient_id = $1 `;
   client.query(SQL, [request.session.patientId]).then(data => {
     let resultArr = [];
     resultArr.push(data.rows[0]);
     const SQL2 = 'SELECT * from Contact where pat_id = $1';
     client.query(SQL2, [request.session.patientId]).then(dataTwo => {
-      console.log('edit profile page variable sql2 ', dataTwo.rows[0]);
       const emailValue = dataTwo.rows[0]['e_mail'];
       resultArr.push({ 'email': emailValue });
-      console.log('edit profile page variable step2', resultArr);
       response.render('pages/user/editprofile', {
         user: resultArr
       });

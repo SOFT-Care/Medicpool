@@ -25,21 +25,25 @@
                     <h3>Location : <%= searchResults.location %>
                     </h3>
                 </section>
-                    <form action="/reserve" method="post">
-                        <input style="display: none;" type="text" name="docName" value="<%= searchResults.name%>">
-                        <input style="display: none;" type="text" name="docSpec" value="<%= searchResults.speciality%>">
-                        <input style="display: none;" type="text" name="docLoc" value="<%= searchResults.location %>">
-                        <input style="display: none;" type="text" name="timeFrom" value="<%= time%>">
-                        <input style="display: none;" type="text" name="timeTo"
-                            value="<%= (parseInt(time)+100).toString() %>">
-                        <input style="display: none;" type="text" name="day" value="<%= dateTime %>">
-                        <input style="display: none;" type="text" name="phone" value="<%= searchResults.phoneNum %>">
-                        <button type="submit" class="buy">Book Appointment</button>
-                    </form>
+                <form action="/reserve" method="post">
+                    <input style="display: none;" type="text" name="docName" value="<%= searchResults.name%>">
+                    <input style="display: none;" type="text" name="docSpec" value="<%= searchResults.speciality%>">
+                    <input style="display: none;" type="text" name="docLoc" value="<%= searchResults.location %>">
+                    <input style="display: none;" type="text" name="timeFrom" value="<%= time%>">
+                    <input style="display: none;" type="text" name="timeTo"
+                        value="<%= (parseInt(time)+100).toString() %>">
+                    <input style="display: none;" type="text" name="day" value="<%= dateTime %>">
+                    <input style="display: none;" type="text" name="phone" value="<%= searchResults.phoneNum %>">
+
+                    <% if(searchResults.availability != 'Available'){ %>
+                    <button type="submit" class="buy" disabled> Can't Book Appointment</button>
+                    <% } else{ %>
+                    <button type="submit" class="buy">Book Appointment</button>
+                    <% } %>
+                </form>
             </section>
             <div class="product-image">
-                <img src="/assets/img/docclinic.jpg"
-                    alt="Omar Dsoky">
+                <img src="/assets/img/docclinic.jpg" alt="Omar Dsoky">
             </div>
         </section>
 
