@@ -41,6 +41,7 @@ app.get('/login', getLoginPage);
 app.post('/login', getLogin);
 app.get('/profile', getProfile);
 app.get('/logout', function (req, res) {
+  msg = '';
   req.session.destroy();
   res.redirect('/login');
 });
@@ -297,10 +298,9 @@ function updateOnePatient(request, response) {
     firstName,
     lastName,
     gender,
-    dateOfBirth,
     password
   } = request.body;
-  let values = [firstName, lastName, gender, dateOfBirth, password, patientId];
+  let values = [firstName, lastName, gender, password, patientId];
   const email = request.body.email;
   let values2 = [email, patientId];
   console.log('values', values2);
@@ -308,16 +308,15 @@ function updateOnePatient(request, response) {
                                  patient_first_name  = $1   ,
                                  patient_last_name   = $2   , 
                                  gender              = $3   ,
-                                 date_of_birth       = $4   ,
-                                 patient_password    = $5   
-                                 WHERE patient_id =  $6  `;
-  client.query(SQL, values).then(_results => {
+                                 patient_password    = $4   
+                                 WHERE patient_id =  $5  `;
+  client.query(SQL, values).then(results => {
     msg = 'Your Profile has been Updated';
     const SQL2 = `UPDATE Contact  SET
                               e_mail = $1  WHERE pat_id =$2`;
-    client.query(SQL2, values2).then(results => {
-      response.redirect(`/login`);
-    });
+  client.query(SQL2, values2).then(results => {
+    request.session.destroy();
+    response.redirect('/login');  });
   })
 
 }
