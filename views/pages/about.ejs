@@ -4,6 +4,7 @@
 <head>
     <%- include('../partials/layout/head') %>
         <link rel="stylesheet" href="/css/SMACSS/modules/about-us.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
         <title>About Us</title>
 </head>
 
@@ -12,89 +13,39 @@
         <%- include('../partials/layout/header') %>
     </header>
     <main>
-        <h1 id="top"> Our Team</h1>
-        <ul id="us">
-            <li id="omar" class="flip-card">
-
-                <div class="flip-card-inner">
-
-                    <div class="flip-card-front">
-                        <img src="/assets/team-images/Omar.jpg"class="img">
-                        <h1> Omar Ramadan </h1>
+        <section class="hero-section">
+            <div class="card-grid">
+                <a class="card" href="https://github.com/ramomar1992">
+                    <div class="card__background" style="background-image: url(/assets/team-images/Omar.jpg)"></div>
+                    <div class="card__content">
+                        <p class="card__category">Software Developer & Team leader</p>
+                        <h3 class="card__heading">Omar Ramadan</h3>
                     </div>
-
-                    <div class="flip-card-back">
-                        <p>
-                            I am a self-taught programmer, determined and disciplined. I graduated with a degree in medical sciences long time ago, but programming was always my passion.
-                        </p>
-                        <a class="githubcards" href="https://github.com/ramomar1992">
-                            <img src="/assets/team-images/25231.png" style="margin-top: 25px;" width="60px">
-                        </a>
-
+                </a>
+                <a class="card" href="https://github.com/faisalabuzaid">
+                    <div class="card__background" style="background-image: url(/assets/team-images/Faisal.jpg)"></div>
+                    <div class="card__content">
+                        <p class="card__category">Mechatronics Engineer</p>
+                        <h3 class="card__heading">Faisal AbuZaid</h3>
                     </div>
-                </div>
-            </li>
-
-            <li id="faisal" class="flip-card">
-
-                <div class="flip-card-inner">
-
-                    <div class="flip-card-front">
-                        <img src="/assets/team-images/Faisal.jpg" class="img">
-                        <h1> Faisal AbuZaid </h1>
+                </a>
+                <a class="card" href="https://github.com/talahajeer">
+                    <div class="card__background" style="background-image: url(/assets/team-images/Tala.jpg)"></div>
+                    <div class="card__content">
+                        <p class="card__category">Architecture Engineer</p>
+                        <h3 class="card__heading">Tala Hajeer</h3>
                     </div>
-
-                    <div class="flip-card-back">
-                        <p>
-                            Mechatronix Engineer</p>
-
-                        <a class="githubcards" href="https://github.com/faisalabuzaid">
-                            <img src="/assets/team-images/25231.png" style="margin-top: 90px;" width="60px">
-                        </a>
-                    </div>
-                </div>
-            </li>
-
-
-            <li id="tala" class="flip-card">
-
-                <div class="flip-card-inner">
-
-                    <div class="flip-card-front">
-                        <img src="/assets/team-images/Tala.jpg"class="img">
-                        <h1>Tala Hajeer</h1>
-                    </div>
-
-                    <div class="flip-card-back">
-                        <p>
-                            I am an architect, I am looking forward to be a software developer and get benefit of this
-                            in my career as an architect or make a shift to an UX designer maybe.</p>
-
-                        <a class="githubcards" href="https://github.com/talahajeer">
-                            <img src="/assets/team-images/25231.png" style="margin-top: 60px;" width="60px">
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li id="sajeda" class="flip-card" width = "1%">
-
-                <div class="flip-card-inner">
-
-                    <div class="flip-card-front">
-                        <img src="/assets/team-images/sajeda.jpg">
-                        <h1>Sajeda Araidah</h1>
-                    </div>
-
-                    <div class="flip-card-back">
-                        <p>
-                            Computer Engineer</p>
-                        <a class="githubcards" href="https://github.com/Sajeda-Araidah">
-                            <img src="/assets/team-images/25231.png" style="margin-top: 90px;">
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
+                    </li>
+                    <a class="card" href="https://github.com/Sajeda-Araidah">
+                        <div class="card__background" style="background-image: url(/assets/team-images/sajeda.jpg)">
+                        </div>
+                        <div class="card__content">
+                            <p class="card__category">Computer Engineer</p>
+                            <h3 class="card__heading">Sajeda Araidah</h3>
+                        </div>
+                    </a>
+                    <div>
+        </section>
     </main>
     <footer>
 
