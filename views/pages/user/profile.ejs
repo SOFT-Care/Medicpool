@@ -13,12 +13,30 @@
     </header>
     <main>
         <section>
-            <h2>Welcome to Dashboard</h2>
-            <p><b> Your Name</b> - <%=data.name %></p>
-            <p><b> Your Gender</b> - <%=data.gender %></p>
-            <p><b>Login Email</b> - <%=data.emailAddress %></p>
+
+           
+            <div >
+                <img src= />
+            </div>
+            <h2>Welcome <%=data.name %></h2>
+            <p>
+                <br>
+                <b> Your Name</b><br> <%=data.name %>
+            </p><br>
+            <p>
+                <b> Your Gender</b><br> <%=data.gender %>
+            </p><br>
+            <p>
+                <b>Date Of Birth</b><br>  <%=data.date_of_birth %>
+            </p><br>
+            <p>
+                <b>Login Email</b><br>  <%=data.emailAddress %>
+            </p><br>
             <p><a href="/logout">Logout</a></p>
+            <p><a method="get" href="/editprofile">Edit Profile</a></p>
         </section>
+
+        
     </main>
     <footer>
 
