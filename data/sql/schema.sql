@@ -1,3 +1,4 @@
+drop table if EXISTS Contact,Appointments,Doctor,Patient;
                                     ---------------------------------------------
                                     -------------SOFT_care Sechema---------------
                                     ---------------------------------------------
@@ -6,7 +7,7 @@
 -----Creating Table Contant-----
 CREATE TABLE IF NOT EXISTS Contact (
                             contant_id                SERIAL   PRIMARY KEY     ,--PRIMARY KEY 
-                            phone_number              INT                      ,
+                            phone_number              VARCHAR(50)              ,
                             e_mail                    VARCHAR(100)             ,
                             pat_id                    int                      ,--FOREIGN key
                             doc_id                    int                       --FOREIGN key
@@ -15,10 +16,10 @@ CREATE TABLE IF NOT EXISTS Contact (
 -----Creating Table Appointments-----
 CREATE TABLE IF NOT EXISTS Appointments (
                             appoi_id                  SERIAL  PRIMARY KEY      ,--PRIMARY KEY 
-                            day                       DATE                     ,
-                            time_from                 DATE                     ,
-                            time_to                   DATE                     ,
-                            pat_id                     int                      ,--FOREIGN key
+                            day                       VARCHAR(50)              ,
+                            time_from                 VARCHAR(50)              ,
+                            time_to                   VARCHAR(50)              ,
+                            pat_id                    int                      ,--FOREIGN key
                             doc_id                    int                       --FOREIGN key
 );
 
@@ -39,7 +40,8 @@ CREATE TABLE IF NOT EXISTS Patient (
 CREATE TABLE IF NOT EXISTS Doctor (
                             doctor_id                 SERIAL  PRIMARY KEY      ,--PRIMARY KEY
                             doctor_name               VARCHAR(1000)            ,
-                            doctor_speciailty         VARCHAR(100)             
+                            doctor_speciailty         VARCHAR(100)             ,
+                            doc_location              VARCHAR(1000)
 );
 
                                 ---------------------------------------------
