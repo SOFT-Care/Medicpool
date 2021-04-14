@@ -60,6 +60,7 @@ app.post('/')
 //Delect Patient From DataBase
 app.delete('/deleteprofile', deleteOnePatient);
 app.get('/contact', contactUs);
+app.get('/about', AboutUs);
 
 function getHomePage(req, res) {
   res.render('pages/index');
@@ -75,6 +76,9 @@ function getCovid19(req, res) {
 }
 function contactUs(req, res) {
   res.render('pages/contact');
+}
+function AboutUs(req, res) {
+  res.render('pages/about');
 }
 function doctorWorkHours() {
   this['0'] = [];
@@ -187,17 +191,17 @@ function getAppointments(req, res) {
 }
 
 function getSignUpPage(req, res) {
-  if(!req.session.loggedinUser){
-  res.render('pages/user/signup', {
-    alertMsg: msg
-  });
-} else { res.redirect('/profile'); }
+  if (!req.session.loggedinUser) {
+    res.render('pages/user/signup', {
+      alertMsg: msg
+    });
+  } else { res.redirect('/profile'); }
 }
 
 function getLoginPage(req, res) {
-  if(!req.session.loggedinUser){
-    res.render('pages/user/login', {alertMsg: msg});
-  } else {res.redirect('/profile');}
+  if (!req.session.loggedinUser) {
+    res.render('pages/user/login', { alertMsg: msg });
+  } else { res.redirect('/profile'); }
 }
 
 function registerUser(req, res) {
@@ -306,11 +310,11 @@ function updateOnePatient(request, response) {
     msg = 'Your Profile has been Updated';
     const SQL2 = `UPDATE Contact  SET
                               e_mail = $1  WHERE pat_id =$2`;
-  client.query(SQL2, values2).then(results => {
-    response.redirect(`/login`);
-  });
+    client.query(SQL2, values2).then(results => {
+      response.redirect(`/login`);
+    });
   })
-  
+
 }
 
 function renderUpdatePatient(request, response) {
@@ -318,20 +322,20 @@ function renderUpdatePatient(request, response) {
   // response.render('/pages/user/editprofile')
   const SQL = `SELECT * FROM Patient WHERE patient_id = $1 `;
   client.query(SQL, [request.session.patientId]).then(data => {
-    let resultArr =[];
+    let resultArr = [];
     resultArr.push(data.rows[0]);
     const SQL2 = 'SELECT * from Contact where pat_id = $1';
     client.query(SQL2, [request.session.patientId]).then(dataTwo => {
       console.log('edit profile page variable sql2 ', dataTwo.rows[0]);
       const emailValue = dataTwo.rows[0]['e_mail'];
-      resultArr.push({'email' : emailValue});
+      resultArr.push({ 'email': emailValue });
       console.log('edit profile page variable step2', resultArr);
       response.render('pages/user/editprofile', {
         user: resultArr
       });
 
     });
-    
+
   })
 }
 
