@@ -12,15 +12,25 @@
         <%- include('../partials/layout/header')  %>
     </header>
     <main>
-        <section>
-            <video autoplay muted loop class="mainVid" >
-                <source  src="/assets/video/production ID_4487290.mp4" type="video/mp4">
-            </video>
-            <a href="/searches/find">Find a Doctor</a>
-        </section>
-        <section id="mainLinks">
-            <a href="/covid19">Latest COVID-19 News</a><a href="/locandphone">Locations and Phone Numbers</a><a
-                href="/signup">Join Our Community</a>
+        <div class="hero-image">
+            <div class="hero-text">
+              <h1 style="font-size:50px">MedicPool</h1>
+              <p>The Place Health FLORISH</p>
+              <button>Find a Doctor</button>
+            </div>
+          </div>
+        <section id="sectionOne">
+            <div>
+                <i class="fa fa-hospital-o" aria-hidden="true"></i>
+                <a href="/covid19">Latest COVID-19 News</a>
+            </div>
+            <div>
+                <a href="/locandphone">Locations and Phone Numbers</a>
+            </div>
+            <div>
+                <a href="/signup">Join Our Community</a>
+
+            </div>
         </section>
 
     </main>
