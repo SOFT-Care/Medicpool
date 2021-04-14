@@ -4,6 +4,7 @@
 <head>
     <%- include('../../partials/layout/head')  %>
     <title>Sign in your account</title>
+    <link rel="stylesheet" href="/css/SMACSS/modules/login-module.css">
 </head>
 
 <body>
@@ -12,28 +13,36 @@
         <%- include('../../partials/layout/header')  %>
     </header>
     <main>
-        <section>
-            <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
+        <div class="login-box">
+            <h2>Login</h2>
             <form action="/login" method="post">
-                <fieldset>
-                    <legend>Sign in</legend>
-
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter your Email" name="email" required><br>
-
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter your Password" name="psw" required><br>
-
-                    <input type="submit" value="Sign in">
-
-                </fieldset>
+                <div class="user-box">
+                    <label for="usrName">Username</label>
+                    <input type="text" id="usrName" name="email" required>
+                </div>
+                <div class="user-box">
+                    <label>Password</label>
+                    <input type="password" name="psw" required>
+                </div>
+                <button type="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Submit
+                </button>
             </form>
-        </section>
+        </div>
+        <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
+        
     </main>
     <footer>
 
         <%- include('../../partials/layout/footer')  %>
     </footer>
+    <script src="/jquery/jquery.js"></script>
+
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

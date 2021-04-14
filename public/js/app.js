@@ -6,6 +6,9 @@ const dataTodayByCountry = {
     confirmed: ''
 }
 $(function () {
+    $('#birth-date').mask('00/00/0000');
+    $('#phone-number').mask('00-0000-0000');
+
     let countriesList = [];
     $.ajax({
         url: '/json/data.json',
