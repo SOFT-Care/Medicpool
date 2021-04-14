@@ -55,7 +55,7 @@ app.get('/covid19', getCovid19);
 app.get('/searches/find', showForm); // Shows the form of search
 app.post('/searches', createSearch); // Renders the result of the search
 app.post('/reserve', reserveAppointment);
-
+app.get('/appointments',getAppointments);
 //Update Patient Informaion
 app.put('/pages/user/profile:patient_id', updateOnePatient);
 
@@ -122,7 +122,7 @@ async function createSearch(req, res) {
                 isAvailable = true;
               }
             }
-            docArr.push(new Doctor(docList[i], speciality, isAvailable))
+            docArr.push(new Doctor(docList[i], speciality, isAvailable, retData.body.result.formatted_phone_number))
           }
         });
     }
@@ -134,36 +134,63 @@ async function createSearch(req, res) {
   });
 };
 
-function Doctor(info, speciality, available) {
+function Doctor(info, speciality, available, phone) {
   this.name = info.name;
   this.speciality = speciality;
   this.location = info.formatted_address;
   this.availability = available ? 'Available' : 'Not Available';
+  this.phoneNum = phone;
   // this.img = info.
 }
 
 
 
 function reserveAppointment(req, res) {
-  console.log('HERRRRRRRRRRR   :::::', req.session.patientId);
+  if (!req.session.patientId) {
+    res.redirect('/login')
+  }
   let {
     docName,
     docSpec,
     docLoc,
     timeFrom,
     timeTo,
-    day
+    day,
+    phone
   } = req.body;
-  let appArr = [day, timeFrom, timeTo];
   let doc_id = 0;
-  client.query('select * from Doctor where doctor_name=$1', [docName]).then(data => {
+  client.query('select * from Doctor join Contact on Doctor.doctor_id=Contact.doc_id where Doctor.doctor_name=$1 and Contact.phone_number=$2', [docName, phone]).then(data => {
     if (data.rows.length > 0) {
       doc_id = data.rows[0].doctor_id;
+      console.log('ifffffff',req.session);
+      client.query('insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)', [day, timeFrom, timeTo, req.session.patientId, doc_id]).then(() => {
+        res.redirect('/appointments')
+      });
+    } else {
+      client.query('insert into doctor (doctor_name,doctor_speciailty,doc_location) values ($1,$2,$3) returning *', [docName, docSpec, docLoc])
+      .then((data2) => {
+        client.query('insert into Contact (phone_number,doc_id) values($1,$2)', [phone, data2.rows[0].doctor_id]).then(() => {
+          console.log('elseeeeeeeeeeee',req.session);
+          client.query('insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)', [day, timeFrom, timeTo, req.session.patientId, data2.rows[0].doctor_id]).then(() => {
+              res.redirect('/appointments')
+            });
+          });
+        });
     }
-    // let SQL = 'insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)'
-    // client.query(SQL, appArr).then(() => {
-  
-    // });
+  });
+}
+
+function getAppointments(req, res) {
+  if (!req.session.patientId) {
+    res.redirect('/login')
+  }
+  const SQL = `SELECT Appointments.pat_id,Appointments.appoi_id, Appointments.day,Appointments.time_from,Appointments.time_to, Doctor.doctor_name, Doctor.doctor_speciailty, Doctor.doc_location, Contact.phone_number
+  from ((Doctor
+  inner join Appointments on Doctor.doctor_id = Appointments.doc_id)
+  inner join Contact on Doctor.doctor_id = Contact.doc_id)
+  where Appointments.pat_id =$1`;
+  client.query(SQL, [req.session.patientId]).then(data => {
+    res.render('pages/searches/appointments',{elems:data.rows});
   });
 }
 
@@ -191,11 +218,9 @@ function registerUser(req, res) {
     password: req.body.psw,
     confirm_password: req.body['psw-repeat']
   };
-  console.log(inputData);
   // check unique email address
   const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail = $1';
   client.query(SQL, [inputData.email_address]).then((data) => {
-    console.log(data.rows);
     if (data.rowCount > 0) {
       msg = inputData.email_address + ' was already exist';
       // check if both passwords fields matched
@@ -208,7 +233,6 @@ function registerUser(req, res) {
       let SQL = 'INSERT INTO Patient (patient_first_name, patient_last_name, gender, patient_password) VALUES ($1, $2, $3, $4) RETURNING *';
       let SQL2 = 'INSERT INTO Contact (e_mail,pat_id) values ($1,$2)'
       client.query(SQL, val).then((result) => {
-        console.log(result.rows);
         const {
           patient_id
         } = result.rows[0];
@@ -248,7 +272,6 @@ function getLogin(req, res) {
 
 function getProfile(req, res) {
   if (req.session.loggedinUser) {
-    console.log(req.session);
     res.render('pages/user/profile', {
       data: req.session
     });
