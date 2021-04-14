@@ -59,6 +59,7 @@ app.put('/editprofile', updateOnePatient);
 app.post('/')
 //Delect Patient From DataBase
 app.delete('/deleteprofile', deleteOnePatient);
+app.get('/contact', contactUs);
 
 function getHomePage(req, res) {
   res.render('pages/index');
@@ -72,7 +73,9 @@ function showForm(request, response) {
 function getCovid19(req, res) {
   res.render('pages/corona-page/search');
 }
-
+function contactUs(req, res) {
+  res.render('pages/contact');
+}
 function doctorWorkHours() {
   this['0'] = [];
   this['1'] = [];
