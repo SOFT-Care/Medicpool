@@ -4,56 +4,52 @@
 <head>
     <%- include('../../partials/layout/head')  %>
     <title>Sign Up</title>
+    <link rel="stylesheet" href="/css/SMACSS/modules/signup-module.css">
 </head>
 
 <body>
     <header>
-
         <%- include('../../partials/layout/header')  %>
     </header>
     <main>
-        <section>
-            <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
-            <form action="/register" method="post">
-                <fieldset>
-                    <legend>Sign Up</legend>
-                    <label for="fname">First Name</label>
-                    <input type="text" placeholder="Enter Your First Name" id="fname" name="fname" required><br>
-
-                    <label for="lname">Last Name</label>
-                    <input type="text" placeholder="Enter Your Last Name" id="lname" name="lname"><br>
-
-                    <p>Gender</p>
-                    <SELECT name="gender" id="gender">
-                        <OPTION Value="male">Male</OPTION>
-                        <OPTION Value="female">Female</OPTION>                        
-                    </SELECT><br>
-
-                    <p>Date of Birth</p>
-                    <input type="date" id="birthday" name="birthday" required><br>
-
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter Email" name="email" required><br>
-
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required><br>
-
-                    <label for="psw-repeat"><b>Repeat Password</b></label>
-                    <input type="password" placeholder="Repeat Password" name="psw-repeat" required><br>
-
-                    <LABEL FOR="terms"> I have read and agree to the Terms and Conditions and Privacy Policy </LABEL>
-                    <input type="checkbox" name="checkbox" value="check" id="agree" /><br>
-
-                    <input type="submit" value="Sign Up">
-
-                </fieldset>
+        <div class="registration-form">
+            <form>
+                <div class="form-icon">
+                    <span><i class="icon icon-user"></i></span>
+                </div>
+                <input type="text" class="form-control item" placeholder="Enter Your First Name" id="fname" name="fname"
+                    required>
+                <input type="text" class="form-control item" placeholder="Enter Your Last Name" id="lname" name="lname">
+                <input type="password" class="form-control item" placeholder="Enter Password" name="psw" required>
+                <input type="password" class="form-control item" placeholder="Repeat Password" name="psw-repeat"
+                    required>
+                <input type="date" class="form-control item" id="birthday" name="birthday" required>
+                <SELECT class="form-control item" name="gender" id="gender">
+                    <OPTION Value="male">Male</OPTION>
+                    <OPTION Value="female">Female</OPTION>
+                </SELECT><br>
+                <input type="text" class="form-control item" placeholder="Enter Email" name="email" required>
+                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number" name="phone">
+                <button type="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Submit
+                </button>
             </form>
-        </section>
+        </div>
+        <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1>
     </main>
     <footer>
 
         <%- include('../../partials/layout/footer')  %>
     </footer>
+    <script src="/jquery/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js">
+    </script>
+    <script src="/js/app.js"></script>
+
 </body>
 
 </html>

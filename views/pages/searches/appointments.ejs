@@ -3,7 +3,9 @@
 
 <head>
     <%- include('../../partials/layout/head') %>
+    <link rel="stylesheet" href="/css/SMACSS/modules/appointment-cards-module.css">
     <title>Appointments</title>
+    
 </head>
 
 <body>
@@ -12,19 +14,26 @@
     </header>
     <main>
         <% elems.forEach(elem=>{ %>
-
-        <section class="appointmentCard">
-            <h2>Appointment Number: <%= elem.appoi_id %> </h2>
-            <div>
-                <h3>Date: on <%= elem.day %> </h3>
-                <h3>From: <%= elem.time_from.slice(0,2)+':'+elem.time_from.slice(2) %> </h3>
-                <h3>To: <%= elem.time_to.slice(0,2)+':'+elem.time_to.slice(2) %> </h3>
-                <h3>Dr/Clinic: <%= elem.doctor_name %> </h3>
-                <h3>Specialty: <%= elem.doctor_speciailty %> </h3>
-                <h3>Phone Number: <%= elem.phone_number %> </h3>
-                <h3>Address: <%= elem.doc_location %> </h3>
+        <div class="card">
+            <div class="face face1">
+                <div class="content">
+                    <h3 class="title">Appointment</h3>
+                    <h3 class="title">On: <%= elem.day %> </h3>
+                    <h3>From: <%= elem.time_from.slice(0,2)+':'+elem.time_from.slice(2) %> </h3>
+                    <h3>To: <%= elem.time_to.slice(0,2)+':'+elem.time_to.slice(2) %> </h3>
+                </div>
             </div>
-        </section>
+            <div class="face face2">
+                <div class="content">
+                    <h3>Dr/Clinic: <%= elem.doctor_name %> </h3>
+                    <h3>Specialty: <%= elem.doctor_speciailty %> </h3>
+                    <h3>Phone Number: <%= elem.phone_number %> </h3>
+                    <h3>Address: <%= elem.doc_location %> </h3>
+                    <a href="#">Cancel Appointment</a>
+                </div>
+            </div>
+        </div>
+
         <% }) %>
     </main>
     <footer>

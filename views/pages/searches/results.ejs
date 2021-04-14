@@ -3,6 +3,7 @@
 
 <head>
     <%- include('../../partials/layout/head') %>
+    <link rel="stylesheet" href="/css/SMACSS/modules/doctor-search-result-module.css">
     <title>Find Results</title>
 </head>
 
@@ -13,30 +14,35 @@
     </header>
     <main>
         <% searchResults.forEach (searchResults=> { %>
-
-        <section class="dr_card">
-            <!-- <img src=""> -->
-            <h3>Name : <%= searchResults.name %>
-            </h3>
-            <h3>Speciality : <%= searchResults.speciality %>
-            </h3>
-            <h3>Location : <%= searchResults.location %>
-            </h3>
-            <h3>Availibility : <%= searchResults.availability%></h3>
-            <h3>Phone Number: <%= searchResults.phoneNum%></h3>
-
-            <form action="/reserve" method="post">
-                <input style="display: none;" type="text" name="docName" value="<%= searchResults.name%>">
-                <input style="display: none;" type="text" name="docSpec" value="<%= searchResults.speciality%>">
-                <input style="display: none;" type="text" name="docLoc" value="<%= searchResults.location %>">
-                <input style="display: none;" type="text" name="timeFrom" value="<%= time%>">
-                <input style="display: none;" type="text" name="timeTo" value="<%= (parseInt(time)+100).toString() %>">
-                <input style="display: none;" type="text" name="day" value="<%= dateTime %>">
-                <input style="display: none;" type="text" name="phone" value="<%= searchResults.phoneNum %>">
-                <input type="submit" value="Book Appointment">
-            </form>
+        <section id="container">
+            <section class="docDetails">
+                <section class="doc">
+                    <h2><%= searchResults.name %></h2>
+                    <h3>Speciality : <%= searchResults.speciality %>
+                    </h3>
+                    <h3>Availibility : <%= searchResults.availability%></h3>
+                    <h3>Phone Number: <%= searchResults.phoneNum%></h3>
+                    <h3>Location : <%= searchResults.location %>
+                    </h3>
+                </section>
+                    <form action="/reserve" method="post">
+                        <input style="display: none;" type="text" name="docName" value="<%= searchResults.name%>">
+                        <input style="display: none;" type="text" name="docSpec" value="<%= searchResults.speciality%>">
+                        <input style="display: none;" type="text" name="docLoc" value="<%= searchResults.location %>">
+                        <input style="display: none;" type="text" name="timeFrom" value="<%= time%>">
+                        <input style="display: none;" type="text" name="timeTo"
+                            value="<%= (parseInt(time)+100).toString() %>">
+                        <input style="display: none;" type="text" name="day" value="<%= dateTime %>">
+                        <input style="display: none;" type="text" name="phone" value="<%= searchResults.phoneNum %>">
+                        <button type="submit" class="buy">Book Appointment</button>
+                    </form>
+            </section>
+            <div class="product-image">
+                <img src="/assets/img/docclinic.jpg"
+                    alt="Omar Dsoky">
+            </div>
         </section>
-        <br>
+
         <% }) %>
     </main>
     <footer>
