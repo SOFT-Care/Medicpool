@@ -21,8 +21,8 @@ header {
 }
 
 section {
-    max-width: 480px;
-    width: 95%;
+    /* max-width: 480px;
+    width: 95%; */
 }
 
 img {
@@ -42,3 +42,4 @@ td {
     line-height: 5em;
     background-color: thistle;
 }
+
