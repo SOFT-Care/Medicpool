@@ -163,24 +163,32 @@ header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
 }
 
 @media screen and (min-width: 481px) {
-    header{
-        max-width:100% ;
+    header {
+        max-width: 100%;
         width: 100%;
         height: fit-content;
         min-height: 30vh;
     }
-    h2#logo{
+
+    nav ul li a {
+        font-size: 0.9rem !important;
+    }
+
+    h2#logo {
         color: white;
         font-size: 1rem;
     }
+
     header nav input[type="checkbox"]#hambMenu {
         display: none;
     }
-    img.logoImg{
+
+    img.logoImg {
         width: 10vh;
         background-color: rgba(255, 255, 255, 0.493);
     }
-    nav{
+
+    nav {
         height: fit-content;
         display: flex;
         flex-direction: row;
@@ -189,7 +197,7 @@ header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
         background-color: black;
     }
 
-    nav ul#navBar{
+    nav ul#navBar {
         height: fit-content;
         visibility: visible;
         opacity: 1;
@@ -202,7 +210,8 @@ header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
         background-color: transparent;
         flex-wrap: wrap;
     }
-    nav ul#navBar li{
+
+    nav ul#navBar li {
         width: calc(fit-content+30px);
         display: flex;
         flex-direction: column;
@@ -210,19 +219,23 @@ header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
         justify-content: center;
         padding-left: 0.5rem;
     }
-    nav ul#navBar li:hover{
+
+    nav ul#navBar li:hover {
         background-color: #fff8dc;
     }
-    nav ul#navBar li a{
+
+    nav ul#navBar li a {
         width: fit-content;
     }
+
     nav ul#navBar li a::before,
-    nav ul#navBar li a::after{
+    nav ul#navBar li a::after {
         display: none;
         width: 0;
         content: '';
     }
-    .slidermenu{
+
+    .slidermenu {
         display: none;
     }
 }

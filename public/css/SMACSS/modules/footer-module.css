@@ -4,9 +4,9 @@ footer {
     justify-content: space-between;
     min-height: 60vh;
     align-items: center;
-    background-color: darkgray;
+    background-color: rgba(169, 169, 169, 0.452);
     width: 100%;
-    max-width: 480px;
+    border-radius: 100px 100px 0 0;
     position: relative;
 }
 
