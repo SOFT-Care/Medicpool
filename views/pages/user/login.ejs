@@ -4,6 +4,7 @@
 <head>
     <%- include('../../partials/layout/head')  %>
     <title>Sign in your account</title>
+    <link rel="stylesheet" href="/css/SMACSS/modules/login-module.css">
 </head>
 
 <body>
@@ -12,7 +13,41 @@
         <%- include('../../partials/layout/header')  %>
     </header>
     <main>
-        <section>
+        <div id="login-button">
+            <img src="https://dqcgrsy5v35b9.cloudfront.net/cruiseplanner/assets/img/icons/login-w-icon.png">
+            </img>
+        </div>
+        <div id="container">
+            <h1>Log In</h1>
+            <span class="close-btn">
+                <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
+            </span>
+
+            <form method="post" action="/login">
+                <input type="email" name="email" required placeholder="E-mail">
+                <input type="password" name="psw" required placeholder="Password">
+               <input type="submit" value="Sign in">
+                <div id="remember-container">
+                    <input type="checkbox" id="checkbox-2-1" class="checkbox" checked="checked" />
+                    <span id="remember">Remember me</span>
+                    <span id="forgotten">Forgotten password</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Forgotten Password Container -->
+        <div id="forgotten-container">
+            <h1>Forgotten</h1>
+            <span class="close-btn">
+                <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png"></img>
+            </span>
+
+            <form>
+                <input type="email" name="email" placeholder="E-mail">
+                <a href="#" class="orange-btn">Get new password</a>
+            </form>
+        </div>
+        <!-- <section>
             <h1 style="font-size: larger; color:red;"><%= alertMsg %></h1> 
             <form action="/login" method="post">
                 <fieldset>
@@ -28,12 +63,15 @@
 
                 </fieldset>
             </form>
-        </section>
+        </section> -->
     </main>
     <footer>
 
         <%- include('../../partials/layout/footer')  %>
     </footer>
+    <script src="/jquery/jquery.js"></script>
+
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
