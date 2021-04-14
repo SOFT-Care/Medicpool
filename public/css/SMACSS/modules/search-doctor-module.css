@@ -1,0 +1,37 @@
+#docSearchForm {
+    max-width: 480px;
+    min-height: 50vh;
+    width: 100%;
+}
+
+#docSearchForm form {
+    display: flex;
+    margin: 0 auto;
+    min-height: 50vh;
+    width: 90%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input {
+    height: 10vh;
+    padding-left: 1rem;
+}
+
+select {
+    height: 10vh;
+    padding-left: 1rem;
+}
+
+button {
+    height: 10vh;
+}
+
+input,
+select,
+button {
+    width: 80%;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+}

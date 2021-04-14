@@ -26,13 +26,13 @@ nav ul {
     background-color: #f8de7e;
     top: 0;
     left: 0;
+    opacity: 0;
     display: flex;
     z-index: 5;
     flex-direction: column;
     justify-content: center;
     align-items: left;
     position: absolute;
-    transform: translateY(-100vh);
 }
 
 nav ul li {
@@ -70,10 +70,11 @@ nav ul li {
     transform-origin: right;
 }
 
-header nav input[type="checkbox"] {
+header nav input[type="checkbox"]#hambMenu {
     position: absolute;
     width: 7vh;
     height: 7vh;
+    margin: 0;
     right: 0;
     top: 30%;
     opacity: 0;
@@ -133,8 +134,8 @@ header nav ul li a:hover::after {
 
 header nav input[type="checkbox"]:checked~ul {
     transform: translateY(0);
-    transition: 0.5s linear;
-
+    opacity: 1;
+    transition: 0.5s;
 }
 
 header nav input[type="checkbox"]:checked~div .hamburger {
@@ -159,4 +160,69 @@ header nav input[type="checkbox"]:checked~div .hamburger:last-child {
 header nav input[type="checkbox"]:checked~div .hamburger:nth-child(2) {
     transform: translatex(400%);
     opacity: 0;
+}
+
+@media screen and (min-width: 481px) {
+    header{
+        max-width:100% ;
+        width: 100%;
+        height: fit-content;
+        min-height: 30vh;
+    }
+    h2#logo{
+        color: white;
+        font-size: 1rem;
+    }
+    header nav input[type="checkbox"]#hambMenu {
+        display: none;
+    }
+    img.logoImg{
+        width: 10vh;
+        background-color: rgba(255, 255, 255, 0.493);
+    }
+    nav{
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        flex-wrap: wrap;
+        background-color: black;
+    }
+
+    nav ul#navBar{
+        height: fit-content;
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+        transform: translateY(0);
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: max-content;
+        background-color: transparent;
+        flex-wrap: wrap;
+    }
+    nav ul#navBar li{
+        width: calc(fit-content+30px);
+        display: flex;
+        flex-direction: column;
+        margin: 0 0.75rem;
+        justify-content: center;
+        padding-left: 0.5rem;
+    }
+    nav ul#navBar li:hover{
+        background-color: #fff8dc;
+    }
+    nav ul#navBar li a{
+        width: fit-content;
+    }
+    nav ul#navBar li a::before,
+    nav ul#navBar li a::after{
+        display: none;
+        width: 0;
+        content: '';
+    }
+    .slidermenu{
+        display: none;
+    }
 }
