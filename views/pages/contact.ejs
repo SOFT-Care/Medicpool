@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/layout/head') %>
+        <link rel="stylesheet" href="/css/SMACSS/modules/homepage-main-module.css">
+        <title>Home Page</title>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/layout/header') %>
+    </header>
+    <main>
+        <fieldset>
+            <form>
+                How can we help you?
+                <select name="options" id="options" required>
+                    <option value="I can't login">I can't login</option>
+                    <option value="I can't sign up">I can't sign up</option>
+                    <option value="I don't get data for Corona updates">I don't get data for Corona updates</option>
+                    <option value="I can't reserve an appointment">I can't reserve an appointment</option>
+                    <option value="I couldn't find doctors">I can't find doctors</option>
+                    <option value="I can't find my appointments list">I couldn't find my appointments list</option>
+                    <option value="I can't find any useful articales">I can't find any useful articales</option>
+                    <option value="Other">Other</option>
+                </select>
+                <br>
+                <label for="email">Email</label>
+                <input type="text" placeholder="Enter your Email" name="email" required>
+                <br>
+                <label for="phone">Phone No.</label>
+                <input type="text" placeholder="Enter your phone-number" name="phone" required>
+                <br>
+                <textarea type="text" name="other">Describe</textarea>
+                <br>
+                
+                <input type="submit" placeholder="contactUs" name="phone" required>
+
+            </form>
+        </fieldset>
+
+    </main>
+    <footer>
+
+        <%- include('../partials/layout/footer') %>
+    </footer>
+</body>
+
+</html>
