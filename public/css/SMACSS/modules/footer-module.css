@@ -6,12 +6,14 @@ footer {
     align-items: center;
     background-color: darkgray;
     width: 100%;
+    max-width: 480px;
     position: relative;
 }
 
 footer ul.socialMedia {
     display: flex;
     margin-top: 2reM;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: space-evenly;
     font-size: 4rem;
@@ -23,11 +25,10 @@ footer form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: absolute;
+    align-items: center;
     top: 30%;
     border-radius: 20px;
-    height: fit-content;
-    padding: 2rem;
+    height: 25vh;
     border: 2px solid black;
 }
 

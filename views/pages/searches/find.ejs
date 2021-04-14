@@ -3,6 +3,7 @@
 
 <head>
     <%- include('../../partials/layout/head') %>
+    <link rel="stylesheet" href="/css/SMACSS/modules/search-doctor-module.css">
     <title>Find a Doctor</title>
 </head>
 
@@ -12,27 +13,25 @@
         <%- include('../../partials/layout/header') %>
     </header>
     <main>
-        <section>
-            <fieldset>
-                <form action="/searches" method="post">
+        <section id="docSearchForm">
+            <form action="/searches" method="post">
 
-                    <input type="text" name="location" placeholder="Enter Location" required>
+                <input type="text" name="location" placeholder="Enter Location" required>
 
-                    <select type="text" name="speciality" placeholder="Enter Speciality" required>
-                        <option value="Dental">Dental</option>
-                        <option value="Ophthalmology">Ophthalmology / Eye Care</option>
-                        <option value="Orthopedic">Orthopedic</option>
-                        <option value="Oncologist">Oncologist</option>
+                <select type="text" name="speciality" placeholder="Enter Speciality" required>
+                    <option value="Dental">Dental</option>
+                    <option value="Ophthalmology">Ophthalmology / Eye Care</option>
+                    <option value="Orthopedic">Orthopedic</option>
+                    <option value="Oncologist">Oncologist</option>
 
-                    </select>
+                </select>
 
-                    <input type="time" name="time" placeholder="Enter Time" required>
+                <input type="time" name="time" placeholder="Enter Time" required>
 
-                    <input type="date" name="date" placeholder="Enter Date" required>
+                <input type="date" name="date" placeholder="Enter Date" required>
 
-                    <button type="submit" id="submit" value="search">Search</button>
-                </form>
-            </fieldset>
+                <button type="submit" id="submit" value="search">Search</button>
+            </form>
         </section>
 
     </main>

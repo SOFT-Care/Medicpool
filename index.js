@@ -151,7 +151,6 @@ function reserveAppointment(req, res) {
   client.query('select * from Doctor join Contact on Doctor.doctor_id=Contact.doc_id where Doctor.doctor_name=$1 and Contact.phone_number=$2', [docName, phone]).then(data => {
     if (data.rows.length > 0) {
       doc_id = data.rows[0].doctor_id;
-      console.log('ifffffff', req.session);
       client.query('insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)', [day, timeFrom, timeTo, req.session.patientId, doc_id]).then(() => {
         res.redirect('/appointments')
       });
@@ -159,7 +158,6 @@ function reserveAppointment(req, res) {
       client.query('insert into doctor (doctor_name,doctor_speciailty,doc_location) values ($1,$2,$3) returning *', [docName, docSpec, docLoc])
         .then((data2) => {
           client.query('insert into Contact (phone_number,doc_id) values($1,$2)', [phone, data2.rows[0].doctor_id]).then(() => {
-            console.log('elseeeeeeeeeeee', req.session);
             client.query('insert into Appointments (day,time_from,time_to,pat_id,doc_id) values($1,$2,$3,$4,$5)', [day, timeFrom, timeTo, req.session.patientId, data2.rows[0].doctor_id]).then(() => {
               res.redirect('/appointments')
             });
