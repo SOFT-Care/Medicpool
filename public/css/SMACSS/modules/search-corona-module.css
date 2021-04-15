@@ -1,36 +1,62 @@
 .mainCorona {
     width: 80%;
-    margin: 3rem 0;
+    margin: 3rem auto;
 }
 
 .coronaSearch {
-    width: 100%;
-    min-height: 30vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
 }
-
+.fields {
+    width: 100%;
+    /* min-height: 30vh; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.input{
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    flex-basis: 17rem;   
+    justify-content: space-between;
+    flex-basis: 17rem;
+    width: 30%;
+}
 select,
 input[type='date'] {
     height: 5vh;
     background-color: #f8de7e;
     color: #373c378c;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-family: 'russo one';
     padding-left: 2rem;
     border-radius: 10px;
     outline: none;
     border: none;
 }
+select{
+    flex-basis: 17rem;
+    max-width: 17rem;
+    width: 30%;
+    margin-right: 2rem;
+}
+input[type='date']{
+    margin-right:2rem;
+    flex-basis: 17rem;
+}
 
 select:focus {
+    width: 17rem;
     background-color: steelblue;
     color: white;
 }
 
 label {
-    width: 100%;
+    width: fit-content;
+    justify-self: flex-end;
 }
 
 input[type='submit'] {
@@ -42,10 +68,11 @@ input[type='submit'] {
     background-color: mediumslateblue;
     color: white;
     font-size: 2rem;
+    cursor: pointer;
 }
 
 .coronaSearch input[type='submit'] {
-    width: 80%;
+    width: 50%;
     margin: 3rem auto;
 }
 

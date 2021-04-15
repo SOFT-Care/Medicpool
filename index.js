@@ -217,10 +217,11 @@ function registerUser(req, res) {
     last_name: req.body.lname,
     email_address: req.body.email,
     gender: req.body.gender,
-    dateOfBirth: req.body.birthday,
+    dateOfBirth: req.body.birthday.slice(0,10),
     password: req.body.psw,
     confirm_password: req.body['psw-repeat']
   };
+  // let date = new Date();
   // check unique email address
   const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail = $1';
   client.query(SQL, [inputData.email_address]).then((data) => {
@@ -239,13 +240,13 @@ function registerUser(req, res) {
         const {
           patient_id
         } = result.rows[0];
-        client.query(SQL2, [inputData.email_address, patient_id])
+        client.query(SQL2, [inputData.email_address, patient_id]).then(() => {
+          // redirect to register page with an alert msg confirm what happen
+          res.redirect('/profile');
+          
+        })
       });
     }
-    // redirect to register page with an alert msg confirm what happen
-    res.render('pages/user/signup', {
-      alertMsg: msg
-    });
   });
 }
 
@@ -299,15 +300,17 @@ function updateOnePatient(request, response) {
     gender,
     password
   } = request.body;
-  let values = [firstName, lastName, gender, password, patientId];
+  let birthdayFormated = request.body.dateOfBirth.slice(0, 10);
+  let values = [firstName, lastName, gender, password, birthdayFormated, patientId];
   const email = request.body.email;
   let values2 = [email, patientId];
   const SQL = `UPDATE  Patient SET 
                                  patient_first_name  = $1   ,
                                  patient_last_name   = $2   , 
                                  gender              = $3   ,
-                                 patient_password    = $4   
-                                 WHERE patient_id =  $5  `;
+                                 patient_password    = $4 ,
+                                 date_of_birth = $5
+                                 WHERE patient_id =  $6  `;
   client.query(SQL, values).then(results => {
     msg = 'Your Profile has been Updated';
     const SQL2 = `UPDATE Contact  SET
