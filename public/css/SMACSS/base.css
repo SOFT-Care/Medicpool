@@ -5,7 +5,7 @@
 
 :root {
     --primary--color:#112950;
-    --secondaty--color:#FF4949;
+    --secondary--color:#FF4949;
 }
 body {
     font-family: 'Libre Franklin', sans-serif;
@@ -29,5 +29,5 @@ label {
 
 a:hover {
     text-decoration: underline;
-    color: var(--secondaty--color);
+    color: var(--secondary--color);
 }
