@@ -1,6 +1,8 @@
 # Medicpool
 
-[App website on Heroku](https://medicpool.herokuapp.com/)
+* [Team Agreement](https://github.com/SOFT-Care/medicpool/blob/main/Team%20Agreement.md)
+* [App website on Heroku](https://medicpool.herokuapp.com/)
+* [Software Functional and Non-functional Requirements](https://github.com/SOFT-Care/medicpool/blob/main/requirements.md)
 
 ## Project contributers:
 
@@ -91,6 +93,3 @@ NPM INSTALL
 
 Then navigate to the cloned directory and import the file to your IDE or tect editor. VSCode is highly recommended.
 
-* Clearly defined API endpoints with sample responses
-
-* Clearly defined database schemas
