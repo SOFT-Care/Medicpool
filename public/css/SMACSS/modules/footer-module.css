@@ -1,0 +1,65 @@
+#footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.footercol:first-child {
+    order: 1;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.cmykonline.com.au/wp-content/uploads/2020/01/newsletter-background.png');
+    width: 100%;
+    text-align: center;
+    font-size:larger ;
+    color: white;
+    padding: 15px;
+}
+
+.footercol:first-child input[type=email], input[type=submit] {
+        width: 50%;
+        padding: 12px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+      }
+
+.footercol:first-child input[type=submit] {
+    border-radius: 5px;
+    color: white;
+    background-color: var(--secondary--color);
+}
+
+.footercol:first-child input[type=submit]:hover {
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+}
+
+
+.footercol:nth-child(2) ul {
+display: flex;
+flex-direction: row;
+width: 50%;
+}
+
+.footercol:nth-child(2) a {
+    color:var(--secondary--color);
+    margin: 30px 15px;
+    font-size: 2.5rem;
+}
+.footercol:nth-child(2) a:hover {
+    color: thistle;
+}
+
+.footercol:nth-child(2) {
+    order: 2;
+    margin: 30px 15px;
+}
+
+.footercol:nth-child(3) {
+    order: 3;
+    font-size: small;
+    padding: 15px;
+    color: grey;
+}

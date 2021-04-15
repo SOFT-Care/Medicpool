@@ -18,18 +18,18 @@
     color: white;
   }
   
-  .hero-text button {
+  .hero-text input[type=submit] {
     border: none;
     outline: 0;
     display: inline-block;
     padding: 10px 25px;
     color: white;
-    background-color: var(--secondaty--color);
+    background-color: var(--secondary--color);
     text-align: center;
     cursor: pointer;
   }
   
-  .hero-text button:hover {
+  .hero-text input[type=submit]:hover {
     background-color: #555;
     color: white;
   }
@@ -39,12 +39,58 @@
       align-items: center;
       justify-content: center;
       margin: 10px 30px;
+      height: 300px;
   }
+
+  
 
   #sectionOne div {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90px;
-    width: 30%;
+    flex-direction: column;
+    height: 150px;
+    width: 33.3%;
+    text-align: center;
+  }
+
+  #sectionOne div img {
+    width: 10%;
+  }
+
+  #sectionOne div input[type=submit]:hover {
+    color: white;
+    background-color: var(--secondary--color);
+  }
+
+  #sectionOne div h1,p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    padding: 25px;
+  }
+  #sectionOne div input[type=submit]{
+    border-radius: 15px;
+    color: white;
+    background-color: var(--primary--color);
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+
+    #sectionOne  {
+      height: fit-content;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    } 
+   #sectionOne div {
+     height: fit-content;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     width: 100%;
+   } 
   }

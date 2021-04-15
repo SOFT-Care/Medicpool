@@ -16,20 +16,35 @@
             <div class="hero-text">
               <h1 style="font-size:50px">MedicPool</h1>
               <p>The Place Health FLORISH</p>
-              <button>Find a Doctor</button>
+              <form action="searches/find">
+                <input type="submit" value="Find a Doctor">
+            </form>
             </div>
           </div>
         <section id="sectionOne">
             <div>
-                <i class="fa fa-hospital-o" aria-hidden="true"></i>
-                <a href="/covid19">Latest COVID-19 News</a>
+                <h1>COVID-19 Latest Update</h1>
+                <img src='/assets/img/covid.jpg' alt="">
+                <p>check latest corona updates in the world, full details with charts and diagrams</p>
+                <form action="/covid19">
+                    <input type="submit" value="Check Now" />
+                </form>
             </div>
             <div>
-                <a href="/locandphone">Locations and Phone Numbers</a>
+                <h1>Reach Us</h1>
+                <img src='/assets/img/join.png' alt="">
+                <p>If you have any comment or question please feel free to send us a message</p>
+                <form action="/contact">
+                    <input type="submit" value="Contact Us" />
+                </form>
             </div>
             <div>
-                <a href="/signup">Join Our Community</a>
-
+                <h1>Join our community</h1>
+                <img src='/assets/img/contactus.png' alt="">
+                <p>Join us and start search for nearb by clinics and book your appointment</p>
+                <form action="/signup">
+                    <input type="submit" value="Sign up now" />
+                </form>
             </div>
         </section>
 
