@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Patient (
                             patient_first_name        VARCHAR(100)             ,
                             patient_last_name         VARCHAR(100)             ,
                             gender                    VARCHAR(50)              ,
-                            date_of_birth             DATE                     ,
+                            date_of_birth             VARCHAR(20)              ,
                             patient_image             VARCHAR(200)             ,
                             patient_password          VARCHAR(100)             
 );

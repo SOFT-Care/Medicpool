@@ -16,8 +16,9 @@ main{
 }
 
 .card-grid{
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(1fr,1fr);
   grid-column-gap: 24px;
   grid-row-gap: 24px;
   max-width: 1200px;
@@ -32,7 +33,12 @@ main{
 
 @media(min-width: 960px){
   .card-grid{
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(2, 1fr); 
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    row-gap: 6rem;
   }
 }
 

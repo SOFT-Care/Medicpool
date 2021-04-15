@@ -1,50 +1,65 @@
-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 60vh;
-    align-items: center;
-    background-color: rgba(169, 169, 169, 0.452);
-    width: 100%;
-    border-radius: 100px 100px 0 0;
-    position: relative;
-}
-
-footer ul.socialMedia {
-    display: flex;
-    margin-top: 2reM;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-evenly;
-    font-size: 4rem;
-    max-height: 20vh;
-}
-
-footer form {
-    width: 80%;
+#footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: 30%;
-    border-radius: 20px;
-    height: 25vh;
-    border: 2px solid black;
+    margin-top: 15px;
 }
 
-footer form input {
-    margin: 0.5rem 0;
-    height: 5vh;
-    padding: 0.5rem;
+.footercol:first-child {
+    order: 1;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.cmykonline.com.au/wp-content/uploads/2020/01/newsletter-background.png');
+    width: 100%;
+    text-align: center;
+    font-size:larger ;
+    color: white;
+    padding: 15px;
 }
 
-label {
-    font-size: 1.2rem;
+.footercol:first-child input[type=email], input[type=submit] {
+        width: 50%;
+        padding: 12px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+      }
+
+.footercol:first-child input[type=submit] {
+    border-radius: 5px;
+    color: white;
+    background-color: var(--secondary--color);
 }
 
-footer h5 {
-    font-style: italic;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
+.footercol:first-child input[type=submit]:hover {
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+}
+
+
+.footercol:nth-child(2) ul {
+display: flex;
+flex-direction: row;
+width: 50%;
+}
+
+.footercol:nth-child(2) a {
+    color:var(--secondary--color);
+    margin: 30px 15px;
+    font-size: 2.5rem;
+}
+.footercol:nth-child(2) a:hover {
+    color: thistle;
+}
+
+.footercol:nth-child(2) {
+    order: 2;
+    margin: 30px 15px;
+}
+
+.footercol:nth-child(3) {
+    order: 3;
+    font-size: small;
+    padding: 15px;
+    color: grey;
 }

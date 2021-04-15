@@ -41,6 +41,7 @@ app.get('/login', getLoginPage);
 app.post('/login', getLogin);
 app.get('/profile', getProfile);
 app.get('/logout', function (req, res) {
+  msg = '';
   req.session.destroy();
   res.redirect('/login');
 });
@@ -216,10 +217,11 @@ function registerUser(req, res) {
     last_name: req.body.lname,
     email_address: req.body.email,
     gender: req.body.gender,
-    dateOfBirth: req.body.birthday,
+    dateOfBirth: req.body.birthday.slice(0,10),
     password: req.body.psw,
     confirm_password: req.body['psw-repeat']
   };
+  // let date = new Date();
   // check unique email address
   const SQL = 'SELECT Patient.patient_id FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail = $1';
   client.query(SQL, [inputData.email_address]).then((data) => {
@@ -238,13 +240,13 @@ function registerUser(req, res) {
         const {
           patient_id
         } = result.rows[0];
-        client.query(SQL2, [inputData.email_address, patient_id])
+        client.query(SQL2, [inputData.email_address, patient_id]).then(() => {
+          // redirect to register page with an alert msg confirm what happen
+          res.redirect('/profile');
+          
+        })
       });
     }
-    // redirect to register page with an alert msg confirm what happen
-    res.render('pages/user/signup', {
-      alertMsg: msg
-    });
   });
 }
 
@@ -254,7 +256,6 @@ function getLogin(req, res) {
   const SQL = 'SELECT * FROM Patient join Contact on Patient.patient_id =Contact.pat_id WHERE Contact.e_mail =$1 AND Patient.patient_password =$2';
   client.query(SQL, [emailAddress, password]).then((data) => {
     if (data.rowCount > 0) {
-      console.log(data.rows[0]);
       req.session.loggedinUser = true;
       req.session.patientId = data.rows[0].patient_id;
       req.session.emailAddress = emailAddress;
@@ -297,44 +298,39 @@ function updateOnePatient(request, response) {
     firstName,
     lastName,
     gender,
-    dateOfBirth,
     password
   } = request.body;
-  let values = [firstName, lastName, gender, dateOfBirth, password, patientId];
+  let birthdayFormated = request.body.dateOfBirth.slice(0, 10);
+  let values = [firstName, lastName, gender, password, birthdayFormated, patientId];
   const email = request.body.email;
   let values2 = [email, patientId];
-  console.log('values', values2);
   const SQL = `UPDATE  Patient SET 
                                  patient_first_name  = $1   ,
                                  patient_last_name   = $2   , 
                                  gender              = $3   ,
-                                 date_of_birth       = $4   ,
-                                 patient_password    = $5   
+                                 patient_password    = $4 ,
+                                 date_of_birth = $5
                                  WHERE patient_id =  $6  `;
-  client.query(SQL, values).then(_results => {
+  client.query(SQL, values).then(results => {
     msg = 'Your Profile has been Updated';
     const SQL2 = `UPDATE Contact  SET
                               e_mail = $1  WHERE pat_id =$2`;
-    client.query(SQL2, values2).then(results => {
-      response.redirect(`/login`);
-    });
+  client.query(SQL2, values2).then(results => {
+    request.session.destroy();
+    response.redirect('/login');  });
   })
 
 }
 
 function renderUpdatePatient(request, response) {
-  console.log('session is ', request.session.patientId);
-  // response.render('/pages/user/editprofile')
   const SQL = `SELECT * FROM Patient WHERE patient_id = $1 `;
   client.query(SQL, [request.session.patientId]).then(data => {
     let resultArr = [];
     resultArr.push(data.rows[0]);
     const SQL2 = 'SELECT * from Contact where pat_id = $1';
     client.query(SQL2, [request.session.patientId]).then(dataTwo => {
-      console.log('edit profile page variable sql2 ', dataTwo.rows[0]);
       const emailValue = dataTwo.rows[0]['e_mail'];
       resultArr.push({ 'email': emailValue });
-      console.log('edit profile page variable step2', resultArr);
       response.render('pages/user/editprofile', {
         user: resultArr
       });

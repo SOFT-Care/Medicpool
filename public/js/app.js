@@ -6,9 +6,7 @@ const dataTodayByCountry = {
     confirmed: ''
 }
 $(function () {
-    $('#birth-date').mask('00/00/0000');
-    $('#phone-number').mask('00-0000-0000');
-
+    
     let countriesList = [];
     $.ajax({
         url: '/json/data.json',
@@ -42,7 +40,7 @@ $(function () {
             }
             $('.todaysCoronaReport').html('');
             $('.rangeCoronaReport').html('');
-
+            
             dataRangeByCountry.name = selectOption;
             dataTodayByCountry.name = selectOption;
             const dateFrom = $('#dateFrom').val();
@@ -62,80 +60,80 @@ $(function () {
 
                     dataTodayByCountry.confirmed = targetData[0][1].change.total_cases;
                     $('.todaysCoronaReport').append(`
-                <table>
-                <tr>
+                    <table>
+                    <tr>
                     <td id="todayRecovered">
-                        Recovered: ${dataTodayByCountry.recovered}
+                    Recovered: ${dataTodayByCountry.recovered}
                     </td>
                     <td id="todayDeaths">
-                        Deaths: ${dataTodayByCountry.deaths}
+                    Deaths: ${dataTodayByCountry.deaths}
                     </td>
                 </tr>
                 <tr>
-                    <td id="todayConfirmed">
-                        Confirmed: ${dataTodayByCountry.confirmed}
-                    </td>
-                    <td>
-                        Active:  ${dataTodayByCountry.active}
-                    </td>
+                <td id="todayConfirmed">
+                Confirmed: ${dataTodayByCountry.confirmed}
+                </td>
+                <td>
+                Active:  ${dataTodayByCountry.active}
+                </td>
                 </tr>
                 </table>`);
-                    let myChart2 = new Chart(context2,
-
+                let myChart2 = new Chart(context2,
+                    
+                    {
+                        type: 'bar',
+                        data:
+                        
                         {
-                            type: 'bar',
-                            data:
-
+                            labels: [`${dataTodayByCountry.name.toUpperCase()} today`],
+                            datasets:
+                            
+                            [{
+                                label: 'Confirmed Casses',
+                                data: [dataTodayByCountry.confirmed],
+                                backgroundColor: 'rgba(0,0,200,0.3)',
+                                borderWidth: 1
+                            },
                             {
-                                labels: [`${dataTodayByCountry.name.toUpperCase()} today`],
-                                datasets:
-
-                                    [{
-                                            label: 'Confirmed Casses',
-                                            data: [dataTodayByCountry.confirmed],
-                                            backgroundColor: 'rgba(0,0,200,0.3)',
-                                            borderWidth: 1
-                                        },
-                                        {
-                                            label: 'Deaths',
-                                            data: [dataTodayByCountry.deaths],
-                                            backgroundColor: 'rgba(200,0,0,0.3)',
-                                            borderWidth: 1
-                                        },
-                                        {
-                                            label: 'Recovered',
-                                            data: [dataTodayByCountry.recovered],
-                                            backgroundColor: 'rgba(0,200,0,0.3)',
-                                            borderWidth: 1
-                                        }, {
-                                            label: 'Active',
-                                            data: [dataTodayByCountry.active],
-                                            backgroundColor: 'rgba(175,200,0,0.3)',
-                                            borderWidth: 1
+                                label: 'Deaths',
+                                data: [dataTodayByCountry.deaths],
+                                backgroundColor: 'rgba(200,0,0,0.3)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Recovered',
+                                data: [dataTodayByCountry.recovered],
+                                backgroundColor: 'rgba(0,200,0,0.3)',
+                                borderWidth: 1
+                            }, {
+                                label: 'Active',
+                                data: [dataTodayByCountry.active],
+                                backgroundColor: 'rgba(175,200,0,0.3)',
+                                borderWidth: 1
                                         }
                                     ]
-                            }
-
-                            ,
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
+                                }
+                                
+                                ,
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
                                 }
                             }
                         }
-                    );
-                }
-            }).catch(err => console.log(err));
-            $.ajax({
-                url: `https://api.covid19api.com/total/country/${selectOption}?from=${dateFrom}&to=${dateTo}`,
-                success: function (data) {
-
-                    $('.rangeCoronaReport').append('<canvas id="coronaTotalCanvas" width="400px" height="400px"></canvas>')
-                    let canvas = document.getElementById('coronaTotalCanvas')
-                    let context = canvas.getContext('2d');
-
+                        );
+                    }
+                }).catch(err => console.log(err));
+                $.ajax({
+                    url: `https://api.covid19api.com/total/country/${selectOption}?from=${dateFrom}&to=${dateTo}`,
+                    success: function (data) {
+                        
+                        $('.rangeCoronaReport').append('<canvas id="coronaTotalCanvas" width="400px" height="400px"></canvas>')
+                        let canvas = document.getElementById('coronaTotalCanvas')
+                        let context = canvas.getContext('2d');
+                        
                     data.forEach(elem => {
                         if (elem.Date != "2021-03-07T00:00:00Z") {
                             dataRangeByCountry.dates.push(elem.Date.slice(0, 10));
@@ -147,18 +145,18 @@ $(function () {
                     });
                     console.log(dataRangeByCountry);
                     let myChart = new Chart(context,
-
+                        
                         {
                             type: 'line',
                             data:
-
+                            
                             {
                                 labels: dataRangeByCountry.dates,
                                 datasets:
-
-                                    [{
-                                            label: 'Confirmed Casses',
-                                            data: dataRangeByCountry.confirmed,
+                                
+                                [{
+                                    label: 'Confirmed Casses',
+                                    data: dataRangeByCountry.confirmed,
                                             backgroundColor: 'rgba(0,0,200,0.3)',
                                             borderWidth: 1
                                         },
@@ -181,8 +179,8 @@ $(function () {
                                             borderWidth: 1
                                         }
                                     ]
-                            }
-
+                                }
+                                
                             ,
                             options: {
                                 scales: {
@@ -192,10 +190,12 @@ $(function () {
                                 }
                             }
                         }
-                    );
-                }
-
-            });
-        }
+                        );
+                    }
+                    
+                });
+            }
+        });
+        $('#birth-date').mask('00/00/0000');
+        $('#phone-number').mask('00-0000-0000');
     });
-});

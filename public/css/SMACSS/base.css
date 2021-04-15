@@ -1,13 +1,24 @@
 * {
     box-sizing: border-box;
+    font-family: 'Libre Franklin', sans-serif;
 }
 
+:root {
+    --primary--color:#112950;
+    --secondary--color:#FF4949;
+}
 body {
-    background-color: #fff8dc;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: bold;
+    color: var(--primary--color);
 }
 
+main {
+    width: 100%;
+    min-height: 100vh;
+}
 a {
-    color: black;
+    color: var(--primary--color);
     text-decoration: none;
     display: inline-block;
 }
@@ -18,5 +29,5 @@ label {
 
 a:hover {
     text-decoration: underline;
-    color: blueviolet;
+    color: var(--secondary--color);
 }

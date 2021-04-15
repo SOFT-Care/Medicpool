@@ -13,20 +13,25 @@
     </header>
     <main class="mainCorona">
         <form class="coronaSearch">
-            <label for="cnty">Country:
-            </label>
+            <div class="fields">
 
-            <select name="country" id="cnty" required>
-                <option value="" selected disabled>Selece Country</option>
-            </select>
-            <label for="dateFrom">
-                Date From:
-            </label>
-            <input type="date" name="dataFrom" id="dateFrom" placeholder="From" required>
-            <label for="dateTo">
-                Date To:
-            </label>
-            <input type="date" name="dateTo" id="dateTo" placeholder="To" required>
+                <select name="country" id="cnty" required>
+                    <option value="" selected disabled>Selece Country</option>
+                </select>
+                <div class="input">
+                    <label for="dateFrom">
+                        Date From:
+                    </label>
+                    <input type="date" name="dataFrom" id="dateFrom" placeholder="From" required>
+                </div>
+                <div class="input">
+
+                    <label for="dateTo">
+                        Date To:
+                    </label>
+                    <input type="date" name="dateTo" id="dateTo" placeholder="To" required>
+                </div>
+            </div>
             <input type="submit" value="Search" id="submitCorona">
         </form>
         <div class="todaysCoronaReport">
