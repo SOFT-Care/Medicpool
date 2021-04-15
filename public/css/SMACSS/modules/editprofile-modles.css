@@ -2,10 +2,21 @@
     max-width: 480px;
     min-height: 50vh;
     width: 100%;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    width: 70%;
+    min-height: 100vh;
+    height: fit-content;
+    margin: 5rem auto;
 }
 legend{
+    margin: 2rem auto !important;
     width: 100%;
-    background : mediumslateblue;
+    background : rgba(61, 61, 61, 0.699);
 	padding: 20px 30px 15px 30px;
 	margin: -30px -30px 30px -30px;
 	border-radius: 10px 10px 0 0;
@@ -18,15 +29,7 @@ legend{
 label {
     font-size: 27px;
 }
-/*#editsection form {
-    display: flex;
-    margin: 0 auto;
-    min-height: 50vh;
-    width: 90%;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-}*/
+
 input {
     width: 100%;
     padding-left: 1rem;
@@ -40,15 +43,122 @@ input {
   
 }
 
-input[type=button], input[type=submit] {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
+button[type=submit] {
     cursor: pointer;
-  }
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin: 40px auto 0;
+    border: none;
+    box-shadow: inset 0 0 5px 2px green;
+    border-radius: 20px;
+    background-color: rgba(110, 240, 116, 0.329);
+    letter-spacing: 4px;
+    outline: none;
+}
+
+button[type=submit]:hover {
+    background: #e7ecc0cb;
+    color: black;
+    box-shadow: 0 0 5px #e7ecc0cb,
+        0 0 25px rgb(78, 241, 78),
+        0 0 50px #03e9f4,
+        0 0 100px rgba(235, 59, 59, 0.849);
+}
+
+button[type=submit] span {
+    position: absolute;
+    display: block;
+}
+
+button[type=submit] button span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgb(78, 241, 78));
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+button[type=submit] span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+button[type=submit] span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, rgba(235, 59, 59, 0.849));
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+button[type=submit] span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, rgba(233, 233, 38, 0.849));
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
 
 
 
